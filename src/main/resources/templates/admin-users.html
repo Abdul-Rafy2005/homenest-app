@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+        .summary-card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+        }
+        .summary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.12);
+        }
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .table thead th {
+            font-weight: 800;
+            border: none;
+        }
+        .table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
+        }
+        .table tbody tr:hover {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+        .badge-ROLE_ADMIN {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+        }
+        .badge-ROLE_HOST {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+            color: #4f46e5;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+        }
+        .badge-ROLE_GUEST {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+            color: #0891b2;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+        }
+        .btn-dark {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-dark:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        .btn-outline-secondary {
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            color: var(--text);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline-dark {
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-dark:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-lg py-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <div class="pill"><i class="fa-solid fa-users"></i> User Management</div>
+            <h2 class="fw-bold mt-3 mb-1">Manage roles and accounts</h2>
+            <p class="text-secondary mb-0">Promote, demote, or remove users across all roles.</p>
+        </div>
+        <a class="btn btn-outline-dark" href="/admin/dashboard">Dashboard</a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i><span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="summary-card p-3">
+                <div class="text-muted small mb-1">Total Users</div>
+                <h4 class="fw-bold" th:text="${totalUsers}">0</h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="summary-card p-3">
+                <div class="text-muted small mb-1">Hosts</div>
+                <h4 class="fw-bold" style="color: #4f46e5;" th:text="${totalHosts}">0</h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="summary-card p-3">
+                <div class="text-muted small mb-1">Guests</div>
+                <h4 class="fw-bold" style="color: #06b6d4;" th:text="${totalGuests}">0</h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="summary-card p-3">
+                <div class="text-muted small mb-1">Admins</div>
+                <h4 class="fw-bold" style="color: #ef4444;" th:text="${totalAdmins}">0</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="summary-card p-3">
+                <div class="text-muted small mb-1">New (Last 30d)</div>
+                <h4 class="fw-bold" th:text="${newUsers}">0</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card border-0">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-table me-2"></i>All Users</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}">1</td>
+                            <td th:text="${user.username}">username</td>
+                            <td th:text="${user.email}">email</td>
+                            <td>
+                                <span class="badge bg-secondary" th:text="${user.password}">password</span>
+                            </td>
+                            <td>
+                                <span class="badge" th:classappend="${'badge-' + user.role}" th:text="${user.role}">ROLE</span>
+                            </td>
+                            <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}">date</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <form method="post" th:action="@{'/admin/users/' + ${user.id} + '/promote'}" style="display:inline;" 
+                                          th:if="${user.role == 'ROLE_GUEST'}">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary" title="Promote to Host">
+                                            <i class="fa-solid fa-arrow-up"></i> Host
+                                        </button>
+                                    </form>
+                                    <form method="post" th:action="@{'/admin/users/' + ${user.id} + '/demote'}" style="display:inline;" 
+                                          th:if="${user.role == 'ROLE_HOST'}">
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Demote to Guest">
+                                            <i class="fa-solid fa-arrow-down"></i> Guest
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            data-bs-toggle="modal" 
+                                            th:data-bs-target="'#deleteModal' + ${user.id}" 
+                                            title="Delete User"
+                                            th:if="${user.role != 'ROLE_ADMIN'}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                    <span th:if="${user.role == 'ROLE_ADMIN'}" class="text-muted small">Protected</span>
+                                </div>
+
+                                <!-- Delete Confirmation Modal -->
+                                <div class="modal fade" th:id="'deleteModal' + ${user.id}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirm Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete user "<span th:text="${user.username}"></span>"? This will remove all associated bookings and listings.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <form method="post" th:action="@{'/admin/users/' + ${user.id} + '/delete'}" style="display:inline;">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(users)}">
+                            <td colspan="6" class="text-center text-secondary py-4">No users found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

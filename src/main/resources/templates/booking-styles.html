@@ -1,0 +1,183 @@
+<!-- Modern Booking Pages Style Template -->
+<style>
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #ec4899;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --info: #06b6d4;
+        --text: #1f2937;
+        --text-light: #6b7280;
+        --bg: #f9fafb;
+        --card-bg: #ffffff;
+        --border: #e5e7eb;
+    }
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+    }
+    .navbar {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    .navbar-brand {
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: white !important;
+    }
+    .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+        color: white !important;
+    }
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 0;
+        margin-bottom: 40px;
+        border-radius: 20px;
+    }
+    .page-header h2 {
+        font-weight: 800;
+        font-size: 2.2rem;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+    }
+    .btn-success {
+        background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    .btn-danger {
+        background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+    .card {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(99, 102, 241, 0.12);
+    }
+    .card-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        border: none;
+        border-radius: 16px 16px 0 0 !important;
+        padding: 24px;
+        font-weight: 800;
+    }
+    .card-body {
+        padding: 24px;
+    }
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    .table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    .table thead th {
+        border: none;
+        font-weight: 700;
+        padding: 16px;
+        border-radius: 10px 10px 0 0;
+    }
+    .table tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: all 0.3s ease;
+    }
+    .table tbody tr:hover {
+        background-color: rgba(99, 102, 241, 0.05);
+    }
+    .table tbody td {
+        padding: 16px;
+        vertical-align: middle;
+    }
+    .badge-pending {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+        color: #b45309;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 700;
+    }
+    .badge-confirmed {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+        color: #059669;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 700;
+    }
+    .badge-cancelled {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+        color: #dc2626;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 700;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: var(--card-bg);
+        border-radius: 16px;
+        border: 2px dashed var(--border);
+    }
+    .empty-state i {
+        font-size: 3rem;
+        color: var(--border);
+        margin-bottom: 20px;
+    }
+    .form-label {
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 10px;
+    }
+    .form-control {
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.15);
+    }
+</style>

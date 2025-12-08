@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Bookings - HomeNest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: white !important;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .table thead th {
+            border: none;
+            font-weight: 700;
+            padding: 16px;
+        }
+        .table tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .table tbody tr:hover {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+        .table tbody td {
+            padding: 16px;
+            vertical-align: middle;
+        }
+        .badge-pending {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            color: #b45309;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+        }
+        .badge-approved {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            color: white;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">🏠 HomeNest</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/bookings/guest/bookings">My Bookings</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('HOST')">
+                        <a class="nav-link active" href="/listings/host/listings">Host Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" href="/bookings/guest/bookings">My Bookings</a></li>
+                            <li sec:authorize="hasRole('HOST')"><a class="dropdown-item" href="/listings/host/listings">Host Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="px-3">
+                                    <button type="submit" class="btn btn-link p-0">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Booking Requests (Host)</h2>
+            <span class="badge bg-success" th:if="${currentUser}" th:text="'Logged in as: ' + ${currentUser.username}">Host</span>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}">
+            Error message
+        </div>
+
+        <div th:if="${bookings != null and !bookings.isEmpty()}">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Guest</th>
+                            <th>Guest Email</th>
+                            <th>Property</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Nights</th>
+                            <th>Total Amount</th>
+                            <th>Admin Commission (5%)</th>
+                            <th>Your Earnings</th>
+                            <th>Status</th>
+                            <th>Booked On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="booking : ${bookings}">
+                            <td th:text="${booking.id}">#123</td>
+                            <td th:text="${booking.guest.username}">Guest Name</td>
+                            <td th:text="${booking.guest.email}">guest@email.com</td>
+                            <td>
+                                <a th:href="@{/listings/{id}(id=${booking.listing.id})}" 
+                                   th:text="${booking.listing.title}">Property Name</a>
+                            </td>
+                            <td th:text="${#temporals.format(booking.startDate, 'MMM dd, yyyy')}">Date</td>
+                            <td th:text="${#temporals.format(booking.endDate, 'MMM dd, yyyy')}">Date</td>
+                            <td th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(booking.startDate, booking.endDate)}">1</td>
+                            <td>$<span th:text="${#numbers.formatDecimal(booking.totalAmount, 1, 2)}">0.00</span></td>
+                            <td style="color: #ef4444;"><strong>$<span th:text="${#numbers.formatDecimal(booking.adminCommission, 1, 2)}">0.00</span></strong></td>
+                            <td style="color: #10b981;"><strong>$<span th:text="${#numbers.formatDecimal(booking.totalAmount - booking.adminCommission, 1, 2)}">0.00</span></strong></td>
+                            <td>
+                                <span th:if="${booking.bookingStatus == 'PENDING'}" class="badge bg-warning text-dark">PENDING</span>
+                                <span th:if="${booking.bookingStatus == 'CONFIRMED'}" class="badge bg-success">CONFIRMED</span>
+                                <span th:if="${booking.bookingStatus == 'CANCELLED'}" class="badge bg-danger">CANCELLED</span>
+                                <span th:if="${booking.bookingStatus == 'COMPLETED'}" class="badge bg-secondary">COMPLETED</span>
+                            </td>
+                            <td th:text="${#temporals.format(booking.createdAt, 'MMM dd, yyyy')}">Date</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a th:href="@{/listings/{id}(id=${booking.listing.id})}" class="btn btn-info" title="View Property">
+                                        <i class="fa-solid fa-eye"></i> View
+                                    </a>
+                                    <th:block th:if="${booking.bookingStatus == 'PENDING'}">
+                                        <form th:action="@{/host/bookings/{id}/confirm(id=${booking.id})}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-success" title="Confirm Booking">
+                                                <i class="fa-solid fa-check"></i> Confirm
+                                            </button>
+                                        </form>
+                                        <form th:action="@{/host/bookings/{id}/reject(id=${booking.id})}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger" title="Reject Booking">
+                                                <i class="fa-solid fa-x"></i> Reject
+                                            </button>
+                                        </form>
+                                    </th:block>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <strong>Total Booking Requests:</strong> <span th:text="${bookings.size()}">0</span>
+            </div>
+        </div>
+
+        <div th:if="${bookings == null or bookings.isEmpty()}" class="alert alert-info">
+            <h5>No booking requests yet</h5>
+            <p>You haven't received any booking requests for your properties yet. Make sure your listings are published and visible to guests!</p>
+        </div>
+
+        <div class="mt-4">
+            <a href="/listings/host/listings" class="btn btn-secondary">← Back to My Listings</a>
+            <a href="/" class="btn btn-outline-secondary">Home</a>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 HomeNest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
