@@ -4,90 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Reviews - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --danger: #ef4444;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #1f2937; }
-        .navbar { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important; }
-        .navbar-brand { font-weight: 800; color: #fff !important; }
-        .nav-link { color: rgba(255,255,255,0.9) !important; }
-        .nav-link.active { color: #fff !important; }
-        .card { border: none; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-        .rating-stars { color: #f59e0b; letter-spacing: 1px; }
-        .badge-pill { border-radius: 999px; }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">🏠 HomeNest</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/host/listings">Host Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="/host/bookings">Bookings</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/host/reviews">Reviews</a></li>
-                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span sec:authentication="name">User</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                        <li><a class="dropdown-item" href="/host/listings">Host Dashboard</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form th:action="@{/logout}" method="post" class="px-3">
-                                <button type="submit" class="btn btn-link p-0">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="hn-container" style="padding-top: 128px; padding-bottom: 128px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px;">
+            <div>
+                <h1 class="hn-headline-lg">Reviews for Your Properties</h1>
+                <p class="hn-body-lg" style="color: var(--hn-secondary);">See what guests are saying about your stays</p>
+            </div>
+            <span class="hn-label-sm" th:text="${reviews.size()} + ' reviews'" style="color: var(--hn-secondary);">0 reviews</span>
         </div>
-    </div>
-</nav>
 
-<div class="container my-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">Reviews for Your Properties</h2>
-        <span class="badge bg-primary badge-pill" th:text="${reviews.size()} + ' reviews'">0 reviews</span>
-    </div>
+        <div th:if="${reviews == null or reviews.isEmpty()}" style="text-align: center; padding: 128px 0;">
+            <h3 class="hn-headline-md" style="color: var(--hn-secondary); margin-bottom: 16px;">No reviews yet</h3>
+            <p class="hn-body-lg" style="color: var(--hn-outline);">Your properties haven't received any reviews yet. Reviews appear after guests complete their stays.</p>
+        </div>
 
-    <div th:if="${reviews == null or reviews.isEmpty()}" class="alert alert-info">
-        No reviews yet on your listings.
-    </div>
-
-    <div th:if="${reviews != null and !reviews.isEmpty()}" class="row g-3">
-        <div class="col-12" th:each="review : ${reviews}">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h5 class="card-title mb-1" th:text="${review.listing.title}">Listing Title</h5>
-                            <p class="text-muted small mb-2" th:text="${review.listing.city}">City</p>
-                        </div>
-                        <span class="rating-stars" th:utext="${'*'.repeat(review.rating).replace('*','★') + '*'.repeat(5-review.rating).replace('*','☆')}"></span>
+        <div th:if="${reviews != null and !reviews.isEmpty()}" style="display: grid; gap: 24px;">
+            <div th:each="review : ${reviews}" class="hn-content-card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                    <div>
+                        <h4 class="hn-headline-md" style="margin-bottom: 4px;" th:text="${review.listing.title}">Listing Title</h4>
+                        <p class="hn-body-sm" style="color: var(--hn-secondary);" th:text="${review.listing.city}">City</p>
                     </div>
-                    <p class="mb-1 fw-bold" th:text="${review.guest.username}">guest</p>
-                    <p class="text-muted mb-2" th:text="${#temporals.format(review.createdAt, 'MMM dd, yyyy')}">Date</p>
-                    <p class="mb-0" th:text="${review.comment}" th:if="${review.comment}"></p>
-                    <p class="text-muted fst-italic mb-0" th:if="${review.comment == null or #strings.isEmpty(review.comment)}">No comment provided.</p>
+                    <div>
+                        <span th:each="i : ${#numbers.sequence(1, review.rating)}" style="color: var(--hn-primary); font-size: 18px;">&#9733;</span>
+                        <span th:each="i : ${#numbers.sequence(review.rating + 1, 5)}" style="color: var(--hn-outline-variant); font-size: 18px;">&#9733;</span>
+                    </div>
                 </div>
+                <p class="hn-body-md" style="font-weight: 600; margin-bottom: 4px;" th:text="${review.guest.username}">guest</p>
+                <p class="hn-body-sm" style="color: var(--hn-secondary); margin-bottom: 16px;" th:text="${#temporals.format(review.createdAt, 'MMM dd, yyyy')}">Date</p>
+                <p class="hn-body-md" th:text="${review.comment}" th:if="${review.comment}"></p>
+                <p class="hn-body-md" style="color: var(--hn-outline); font-style: italic;" th:if="${review.comment == null or #strings.isEmpty(review.comment)}">No comment provided.</p>
             </div>
         </div>
-    </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <div style="margin-top: 64px;">
+            <a href="/host/dashboard" class="hn-btn hn-btn-outline">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

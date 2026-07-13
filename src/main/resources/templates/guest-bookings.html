@@ -4,160 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Bookings - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-        .navbar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.4rem;
-            color: white !important;
-        }
-        .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: white !important;
-        }
-        .table {
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .table thead th {
-            border: none;
-            font-weight: 700;
-            padding: 16px;
-        }
-        .table tbody tr {
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        .table tbody tr:hover {
-            background-color: rgba(99, 102, 241, 0.05);
-        }
-        .table tbody td {
-            padding: 16px;
-            vertical-align: middle;
-        }
-        .badge-pending {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-            color: #b45309;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-        }
-        .badge-confirmed {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            color: #059669;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">🏠 HomeNest</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link active" href="/bookings/guest/bookings">My Bookings</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('HOST')">
-                        <a class="nav-link" href="/listings/host/listings">Host Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="/bookings/guest/bookings">My Bookings</a></li>
-                            <li sec:authorize="hasRole('HOST')"><a class="dropdown-item" href="/listings/host/listings">Host Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3">
-                                    <button type="submit" class="btn btn-link p-0">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:insert="fragments/navbar :: navbar"></div>
 
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>My Bookings (Guest)</h2>
-            <span class="badge bg-info" th:if="${currentUser}" th:text="'Logged in as: ' + ${currentUser.username}">Guest</span>
+    <div class="hn-container" style="padding-top: 128px; padding-bottom: 128px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px;">
+            <h1 class="hn-headline-lg">My Bookings</h1>
+            <span class="hn-label-sm" th:if="${currentUser}" th:text="'Logged in as: ' + ${currentUser.username}" style="color: var(--hn-secondary);">Guest</span>
         </div>
 
-        <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}">
-            Error message
-        </div>
+        <div th:if="${error}" class="hn-alert hn-alert-danger" role="alert" th:text="${error}"></div>
 
-        <div th:if="${bookings != null and !bookings.isEmpty()}">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+        <div th:if="${bookings != null and !bookings.isEmpty()}" class="hn-content-card">
+            <div style="overflow-x: auto;">
+                <table class="hn-table">
+                    <thead>
                         <tr>
                             <th>Booking ID</th>
                             <th>Property</th>
@@ -175,51 +38,45 @@
                         <tr th:each="booking : ${bookings}">
                             <td th:text="${booking.id}">#123</td>
                             <td>
-                                <a th:href="@{/listings/{id}(id=${booking.listing.id})}" 
-                                   th:text="${booking.listing.title}">Property Name</a>
+                                <a th:href="@{/listings/{id}(id=${booking.listing.id})}" th:text="${booking.listing.title}" style="color: var(--hn-primary); text-decoration: none;">Property Name</a>
                             </td>
                             <td th:text="${booking.listing.city}">City</td>
                             <td th:text="${#temporals.format(booking.startDate, 'MMM dd, yyyy')}">Date</td>
                             <td th:text="${#temporals.format(booking.endDate, 'MMM dd, yyyy')}">Date</td>
                             <td th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(booking.startDate, booking.endDate)}">1</td>
-                            <td>$<span th:text="${#numbers.formatDecimal(booking.totalAmount, 1, 2)}">0.00</span></td>
+                            <td style="font-weight: 600;">PKR <span th:text="${#numbers.formatDecimal(booking.totalAmount, 0, 'COMMA', 0, 'POINT')}">0</span></td>
                             <td>
-                                <span th:if="${booking.bookingStatus == 'PENDING'}" class="badge bg-warning text-dark">PENDING</span>
-                                <span th:if="${booking.bookingStatus == 'CONFIRMED'}" class="badge bg-success">CONFIRMED</span>
-                                <span th:if="${booking.bookingStatus == 'CANCELLED'}" class="badge bg-danger">CANCELLED</span>
-                                <span th:if="${booking.bookingStatus == 'COMPLETED'}" class="badge bg-secondary">COMPLETED</span>
+                                <span th:if="${booking.bookingStatus == 'PENDING'}" class="hn-badge hn-badge-pending">PENDING</span>
+                                <span th:if="${booking.bookingStatus == 'CONFIRMED'}" class="hn-badge hn-badge-confirmed">CONFIRMED</span>
+                                <span th:if="${booking.bookingStatus == 'CANCELLED'}" class="hn-badge hn-badge-cancelled">CANCELLED</span>
+                                <span th:if="${booking.bookingStatus == 'COMPLETED'}" class="hn-badge hn-badge-completed">COMPLETED</span>
+                                <span th:if="${booking.bookingStatus == 'REJECTED'}" class="hn-badge hn-badge-cancelled">REJECTED</span>
                             </td>
                             <td th:text="${#temporals.format(booking.createdAt, 'MMM dd, yyyy')}">Date</td>
                             <td>
-                                <a th:href="@{/listings/{id}(id=${booking.listing.id})}" 
-                                   class="btn btn-sm btn-info">View Property</a>
+                                <a th:href="@{/listings/{id}(id=${booking.listing.id})}" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 4px 12px;">View Property</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="alert alert-info mt-3">
-                <strong>Total Bookings:</strong> <span th:text="${bookings.size()}">0</span>
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(30, 27, 22, 0.1);">
+                <span class="hn-body-md" style="color: var(--hn-secondary);"><strong>Total Bookings:</strong> <span th:text="${bookings.size()}">0</span></span>
             </div>
         </div>
 
-        <div th:if="${bookings == null or bookings.isEmpty()}" class="alert alert-info">
-            <h5>No bookings found</h5>
-            <p>You haven't made any bookings yet. <a href="/">Browse available properties</a> to make your first booking!</p>
+        <div th:if="${bookings == null or bookings.isEmpty()}" style="text-align: center; padding: 128px 0;">
+            <h3 class="hn-headline-md" style="color: var(--hn-secondary); margin-bottom: 16px;">No bookings found</h3>
+            <p class="hn-body-lg" style="color: var(--hn-outline); margin-bottom: 24px;">You haven't made any bookings yet.</p>
+            <a href="/" class="hn-btn hn-btn-primary">Browse Available Properties</a>
         </div>
 
-        <div class="mt-4">
-            <a href="/" class="btn btn-secondary">← Back to Home</a>
+        <div style="margin-top: 64px;">
+            <a href="/" class="hn-btn hn-btn-outline">Back to Home</a>
         </div>
     </div>
 
-    <footer class="bg-light text-center text-muted py-4 mt-5">
-        <div class="container">
-            <p>&copy; 2025 HomeNest. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

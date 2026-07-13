@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HomeNest | Bold Typographic Minimalism</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1c19",
+                    "primary-fixed": "#ffdad3",
+                    "surface-variant": "#e9e1d8",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#cd472e",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "inverse-on-surface": "#f8efe6",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fff8f2",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#636262",
+                    "on-primary-fixed-variant": "#8c1804",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-dim": "#e0d9d0",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#ffb4a5",
+                    "surface-bright": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#3f0400",
+                    "surface-container-high": "#efe7de",
+                    "secondary": "#5f5e5e",
+                    "on-surface-variant": "#59413c",
+                    "primary-fixed-dim": "#ffb4a5",
+                    "background": "#fff8f2",
+                    "surface-container-low": "#faf2e9",
+                    "on-surface": "#1e1b16",
+                    "tertiary": "#5c5c58",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#ae311b",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "on-primary-container": "#fffbff",
+                    "tertiary-container": "#757571",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e9e1d8",
+                    "tertiary-fixed": "#e4e2dd",
+                    "outline-variant": "#e1bfb8",
+                    "secondary-container": "#e2dfde",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-background": "#1e1b16",
+                    "primary": "#ab2e18",
+                    "on-tertiary-container": "#fefcf7",
+                    "inverse-surface": "#34302a",
+                    "outline": "#8d716b",
+                    "surface-container": "#f5ede4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "stack-unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-sm": ["Work Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "display-xl": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fff8f2;
+            cursor: crosshair;
+        }
+        .hero-pattern {
+            background-image: radial-gradient(#ab2e18 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Navigation -->
+<nav class="bg-surface w-full top-0 border-b border-on-surface/10 flex justify-between items-center px-margin-desktop py-8 max-w-container-max mx-auto z-50 sticky">
+<div class="flex items-center gap-12">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">HomeNest</span>
+<div class="hidden md:flex gap-8">
+<a class="font-body-md text-body-md uppercase tracking-[0.1em] text-primary font-bold border-b border-primary" href="#">Destinations</a>
+<a class="font-body-md text-body-md uppercase tracking-[0.1em] text-secondary hover:text-primary transition-colors duration-200" href="#">Journal</a>
+<a class="font-body-md text-body-md uppercase tracking-[0.1em] text-secondary hover:text-primary transition-colors duration-200" href="#">Concierge</a>
+</div>
+</div>
+<button class="font-body-md text-body-md uppercase tracking-[0.1em] px-6 py-2 border border-on-surface hover:bg-on-surface hover:text-surface transition-all duration-300">
+        Sign In
+    </button>
+</nav>
+<main>
+<!-- Hero: Bold Typographic -->
+<section class="relative min-h-[90vh] flex flex-col justify-center px-margin-desktop bg-surface overflow-hidden">
+<!-- Subtle Geometric Pattern Background -->
+<div class="absolute inset-0 hero-pattern opacity-5 pointer-events-none"></div>
+<div class="max-w-7xl w-full relative z-10 mx-auto">
+<div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12">
+<h1 class="font-display-xl text-[14vw] md:text-[10vw] leading-[0.8] tracking-tighter text-on-surface select-none">
+<span class="block">The New</span>
+<span class="block italic text-primary">Nomad's</span>
+<span class="block -mt-2">Nest.</span>
+</h1>
+<div class="hidden lg:block w-32 h-32 bg-primary self-center mb-8 rotate-45"></div>
+</div>
+<!-- Integrated Minimalist Search Bar -->
+<div class="w-full max-w-4xl border-t-2 border-on-surface pt-12 pb-20">
+<form class="flex flex-col md:flex-row items-center gap-0 bg-surface border border-on-surface">
+<div class="flex-1 border-r border-on-surface/20 px-6 py-4 flex flex-col">
+<label class="text-[10px] uppercase tracking-widest font-bold opacity-50 mb-1">Destination</label>
+<input class="bg-transparent border-0 p-0 focus:ring-0 font-body-lg text-on-surface placeholder:text-on-surface/30" placeholder="Karachi, Lahore, Islamabad..." type="text"/>
+</div>
+<div class="flex-1 border-r border-on-surface/20 px-6 py-4 flex flex-col">
+<label class="text-[10px] uppercase tracking-widest font-bold opacity-50 mb-1">Stay Period</label>
+<input class="bg-transparent border-0 p-0 focus:ring-0 font-body-lg text-on-surface placeholder:text-on-surface/30" placeholder="Add dates" type="text"/>
+</div>
+<div class="flex-1 px-6 py-4 flex flex-col">
+<label class="text-[10px] uppercase tracking-widest font-bold opacity-50 mb-1">Nomads</label>
+<input class="bg-transparent border-0 p-0 focus:ring-0 font-body-lg text-on-surface placeholder:text-on-surface/30" placeholder="1 Guest" type="text"/>
+</div>
+<button class="bg-on-surface text-surface px-12 py-8 h-full font-label-sm uppercase tracking-[0.2em] hover:bg-primary transition-colors flex items-center gap-2">
+<span>Find</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+</div>
+</div>
+</section>
+<!-- Clean Spacious Grid for Listings (Pakistani Context) -->
+<section class="px-margin-desktop py-32 max-w-container-max mx-auto border-t border-on-surface/5">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
+<h2 class="font-headline-lg text-headline-lg">Featured Dwellings.</h2>
+<div class="flex gap-4">
+<button class="px-4 py-2 border border-on-surface text-xs uppercase tracking-widest font-bold bg-on-surface text-surface">All</button>
+<button class="px-4 py-2 border border-on-surface text-xs uppercase tracking-widest font-bold hover:bg-on-surface hover:text-surface transition-all">Sindh</button>
+<button class="px-4 py-2 border border-on-surface text-xs uppercase tracking-widest font-bold hover:bg-on-surface hover:text-surface transition-all">Punjab</button>
+<button class="px-4 py-2 border border-on-surface text-xs uppercase tracking-widest font-bold hover:bg-on-surface hover:text-surface transition-all">Gilgit-Baltistan</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+<!-- Listing 1: Lahore -->
+<div class="group">
+<div class="aspect-square bg-surface-variant overflow-hidden mb-8 border border-on-surface/5">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist architectural room in Lahore with exposed brick and high ceilings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkHtYzOK-5hS_Mr8H83YOT0nhsDwN01J3xuWiO5ZEBBhAHP0Dn8XgWA6Gorre3vMy3rLxLfXqOE2lT1zYd3Twt2lFa2x8AH8cWYgdW0TF2dHuCNpqK6pjfmebDMgdxglf8TcS4PV7Z9XJc_REupeekpnYW3F36jniWZovkUX-2_qYYpJ_vzkYz_0Pdzn8VIVKMIOfujXv3kaLj0u-8QXNyKpR3zxtaJg01dF6nijJyzZ1aMsCfEXN1mSqAoD0IDW7G7YOetJ2RSj-A"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-primary uppercase">The Walled City Archive</span>
+<h3 class="font-headline-md text-2xl mt-1">Lahore, Punjab</h3>
+</div>
+<span class="font-body-md font-bold">PKR 12k <small class="font-normal opacity-60">/ night</small></span>
+</div>
+</div>
+<!-- Listing 2: Karachi -->
+<div class="group">
+<div class="aspect-square bg-surface-variant overflow-hidden mb-8 border border-on-surface/5">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Brutalist concrete architecture overlooking the Arabian Sea at dusk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCImBDNWUlIdIqM-9IBEJZ6hTdF9qAajc3x-dQ3xNIy2K1U5MP0bH8F4AjJ9rXE8ToZeS9PxRqh-hbnURg_Xa5hK5KVenEaVgMG4yj9IUl95-g_5TSyETo7n7RazHhyBFx3gyHQTQoLoFgE5Uo26cqbGQG1NU7GIUnUmsqoBlM5kBhj_f0vTNB98ahfaApdrxGxyXjsuGhjm9rOady138-pUhtguQqSx9DhHBGnSWB5qC_ln0DmcWjEuwM1lY078UXc7aIVjVOewx8r"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-primary uppercase">Monolith by the Sea</span>
+<h3 class="font-headline-md text-2xl mt-1">Karachi, Sindh</h3>
+</div>
+<span class="font-body-md font-bold">PKR 18k <small class="font-normal opacity-60">/ night</small></span>
+</div>
+</div>
+<!-- Listing 3: Hunza -->
+<div class="group">
+<div class="aspect-square bg-surface-variant overflow-hidden mb-8 border border-on-surface/5">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Modern geometric cabin set against the snowy peaks of Hunza valley." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmxKcm3wGi8hqgRgBlbLtwnEL0zqJWvRh2SW1mVC4AgLVBohEUfS4j4f9_7tr-DkeWka_V-KsomVOdiwiikjKFSBS1EhspWc6nwVxVsG6T-aurSiY-SAAdZopWmMyeFQeWKFc73HKIJ2XfZd7exnzD8OFWKGeZEmb1lfSem2VK_EbJlFEBBbzBvD3c5KvG22X1ZS0kRK6r-g6yBB0tBSzfvZyhmn2RbF-QUCFQsqMyFEPh7OwIs235Yb83A1jQCYKD1DRm7x_8jZy6"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-primary uppercase">The Peak Sanctuary</span>
+<h3 class="font-headline-md text-2xl mt-1">Hunza, Gilgit</h3>
+</div>
+<span class="font-body-md font-bold">PKR 25k <small class="font-normal opacity-60">/ night</small></span>
+</div>
+</div>
+</div>
+</section>
+<!-- Manifesto Strip -->
+<section class="bg-on-surface text-surface py-20 overflow-hidden border-y border-on-surface">
+<div class="whitespace-nowrap flex animate-marquee">
+<span class="font-display-xl text-[120px] uppercase italic tracking-tighter opacity-10 mx-8">Radical Simplicity</span>
+<span class="font-display-xl text-[120px] uppercase italic tracking-tighter opacity-10 mx-8">Radical Simplicity</span>
+<span class="font-display-xl text-[120px] uppercase italic tracking-tighter opacity-10 mx-8">Radical Simplicity</span>
+</div>
+<style>
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-marquee {
+                animation: marquee 30s linear infinite;
+            }
+        </style>
+</section>
+<!-- Content Feature: Editorial -->
+<section class="px-margin-desktop py-40 bg-surface grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-container-max mx-auto">
+<div class="lg:col-span-5 space-y-12">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-primary">Volume 04</span>
+<h2 class="font-headline-lg text-headline-lg leading-tight">The Brutalist Revival in Punjab's Architecture.</h2>
+<p class="font-body-lg text-secondary leading-relaxed">
+                Exploring how contemporary architects are blending the raw honesty of exposed concrete with the traditional craftsmanship of local masonry in the heart of Pakistan.
+            </p>
+<button class="font-label-sm text-label-sm uppercase border-b-2 border-on-surface pb-2 self-start hover:text-primary hover:border-primary transition-all">Read Journal</button>
+</div>
+<div class="lg:col-span-7 aspect-[16/10] bg-surface-variant border border-on-surface/5 overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125" data-alt="High contrast black and white interior detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5IsEp5gQj0bs7TbqhPLXSEjblmufWrDxFk9RpRiQlkCRAjwSAyEYC-m_kEhNbm_H4kWZZ3ArFYAfTZtO9CB8CcsY3DkYBa670_9IoabmBEpuxC0ZAGVqwXLy2QfcFNt5_gq_ak2-_fqOb7H8FJa0eP2DVbq6CUrnLbrpxFcAprFjXYPl29XumwCi02eiQqyyZJ-Vyv2lcOQPV2litSLhTIwzdF0pnKUDj38X7i-BnmxX2obrBtKEW37m-Vy32_Rccplr_8CkDqmXd"/>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="bg-surface-container-high py-40 px-margin-desktop text-center border-t border-on-surface/10">
+<div class="max-w-2xl mx-auto space-y-12">
+<h2 class="font-headline-lg text-headline-lg">Stay Informed.</h2>
+<p class="font-body-lg text-secondary">Join our weekly digest of international architecture and boutique hospitality.</p>
+<form class="flex flex-col md:flex-row gap-0 border border-on-surface">
+<input class="flex-grow bg-transparent border-0 focus:ring-0 placeholder:text-on-surface/30 font-body-md py-6 px-8" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="bg-on-surface text-surface px-12 py-6 font-label-sm uppercase tracking-widest hover:bg-primary transition-colors">Subscribe</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface w-full py-32 border-t border-on-surface/10 flex flex-col items-center px-margin-desktop max-w-container-max mx-auto space-y-20">
+<div class="w-full flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-xs space-y-6">
+<span class="font-headline-md text-headline-md font-bold">HomeNest</span>
+<p class="font-body-md text-secondary">Curating the world's most intentional living spaces for the modern explorer.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+<div class="space-y-4">
+<span class="font-label-sm text-label-sm uppercase text-primary">Discover</span>
+<ul class="space-y-2">
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Destinations</a></li>
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Collections</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<span class="font-label-sm text-label-sm uppercase text-primary">Editorial</span>
+<ul class="space-y-2">
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Journal</a></li>
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Contributors</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<span class="font-label-sm text-label-sm uppercase text-primary">Support</span>
+<ul class="space-y-2">
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Help Center</a></li>
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Contact</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<span class="font-label-sm text-label-sm uppercase text-primary">Social</span>
+<ul class="space-y-2">
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Instagram</a></li>
+<li><a class="font-body-md text-secondary hover:underline decoration-1" href="#">Pinterest</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="w-full pt-20 border-t border-on-surface/5 flex flex-col md:flex-row justify-between items-center gap-8">
+<span class="font-label-sm text-label-sm uppercase opacity-30">© 2024 HomeNest Pakistan</span>
+<div class="flex gap-12 opacity-30 text-[10px] uppercase tracking-widest font-bold">
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+<a href="#">Cookies</a>
+</div>
+</div>
+</footer>
+<script>
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-12');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.group, .lg\\:col-span-5, .lg\\:col-span-7').forEach(el => {
+        el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-12');
+        observer.observe(el);
+    });
+</script>
+</body></html>

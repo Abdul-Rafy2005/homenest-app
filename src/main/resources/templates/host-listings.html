@@ -4,275 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Listings - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-        .navbar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.4rem;
-            color: white !important;
-        }
-        .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: white !important;
-        }
-        .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 0;
-            margin-bottom: 40px;
-            border-radius: 20px;
-            margin: -20px -20px 40px -20px;
-        }
-        .page-header h2 {
-            font-weight: 800;
-            font-size: 2.2rem;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-        }
-        .btn-outline-primary {
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            font-weight: 700;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-        }
-        .btn-outline-primary:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .btn-group-sm > .btn {
-            padding: 6px 10px;
-            font-size: 0.875rem;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .btn-group-sm > .btn-info {
-            background: var(--info);
-            border: none;
-            color: white;
-        }
-        .btn-group-sm > .btn-info:hover {
-            background: #0891b2;
-            transform: translateY(-2px);
-        }
-        .btn-group-sm > .btn-warning {
-            background: var(--warning);
-            border: none;
-            color: white;
-        }
-        .btn-group-sm > .btn-warning:hover {
-            background: #d97706;
-            transform: translateY(-2px);
-        }
-        .btn-group-sm > .btn-danger {
-            background: var(--danger);
-            border: none;
-            color: white;
-        }
-        .btn-group-sm > .btn-danger:hover {
-            background: #dc2626;
-            transform: translateY(-2px);
-        }
-        .table {
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .table thead th {
-            border: none;
-            font-weight: 700;
-            padding: 16px;
-            border-radius: 10px 10px 0 0;
-        }
-        .table tbody tr {
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        .table tbody tr:hover {
-            background-color: rgba(99, 102, 241, 0.05);
-            transform: scale(1.01);
-        }
-        .table tbody td {
-            padding: 12px;
-            vertical-align: middle;
-        }
-        .modal-content {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            position: relative;
-            z-index: 1050;
-        }
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.5) !important;
-            z-index: 1040 !important;
-        }
-        .modal {
-            z-index: 1050 !important;
-        }
-        .modal-header {
-            border-radius: 15px 15px 0 0 !important;
-            border: none;
-        }
-        .modal-body {
-            padding: 2rem;
-        }
-        .modal-footer {
-            border-top: 1px solid var(--border);
-            padding: 1.5rem;
-        }
-        .badge-published {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            color: #059669;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-        .badge-unpublished {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-            color: #dc2626;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 2px dashed var(--border);
-        }
-        .empty-state i {
-            font-size: 3rem;
-            color: var(--border);
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">🏠 HomeNest</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" href="/bookings/guest/bookings">My Bookings</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('HOST')">
-                        <a class="nav-link active" href="/host/listings">Host Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="/bookings/guest/bookings">My Bookings</a></li>
-                            <li sec:authorize="hasRole('HOST')"><a class="dropdown-item" href="/listings/host/listings">Host Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3">
-                                    <button type="submit" class="btn btn-link p-0">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="hn-container" style="padding-top: 128px; padding-bottom: 128px;">
+        <div th:if="${success}" class="hn-alert hn-alert-success" role="alert" th:text="${success}"></div>
+        <div th:if="${error}" class="hn-alert hn-alert-danger" role="alert" th:text="${error}"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px;">
+            <h1 class="hn-headline-lg">My Listings</h1>
+            <div style="display: flex; gap: 16px;">
+                <a href="/host/bookings" class="hn-btn hn-btn-outline">View Bookings</a>
+                <a href="/host/listings/new" class="hn-btn hn-btn-primary">+ Create New Listing</a>
             </div>
         </div>
-    </nav>
 
-    <div class="container mt-4">
-        <!-- Success/Error Alerts -->
-        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-check me-2"></i>
-            <span th:text="${success}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-circle-xmark me-2"></i>
-            <span th:text="${error}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>My Listings</h2>
-            <div>
-                <a href="/host/bookings" class="btn btn-outline-primary me-2">View Booking Requests</a>
-                <a href="/host/listings/new" class="btn btn-primary">+ Create New Listing</a>
-            </div>
-        </div>
-        </div>
-
-        <div th:if="${listings != null and !listings.isEmpty()}">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+        <div th:if="${listings != null and !listings.isEmpty()}" class="hn-content-card">
+            <div style="overflow-x: auto;">
+                <table class="hn-table">
+                    <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Title</th>
                             <th>City</th>
                             <th>Property Type</th>
@@ -285,31 +38,25 @@
                     </thead>
                     <tbody>
                         <tr th:each="listing : ${listings}">
-                            <td th:text="${listing.id}">1</td>
-                            <td th:text="${listing.title}">Title</td>
+                            <td style="font-weight: 600;" th:text="${listing.title}">Title</td>
                             <td th:text="${listing.city}">City</td>
                             <td th:text="${listing.propertyType}">Type</td>
-                            <td>$<span th:text="${listing.pricePerNight}">0</span></td>
+                            <td style="font-weight: 600;">PKR <span th:text="${#numbers.formatDecimal(listing.pricePerNight, 0, 'COMMA', 0, 'POINT')}">0</span></td>
                             <td th:text="${listing.capacity}">0</td>
                             <td>
-                                <span th:if="${listing.isPublished}" class="badge bg-success">Yes</span>
-                                <span th:unless="${listing.isPublished}" class="badge bg-secondary">No</span>
+                                <span th:if="${listing.isPublished}" class="hn-badge hn-badge-confirmed">Published</span>
+                                <span th:unless="${listing.isPublished}" class="hn-badge hn-badge-cancelled">Draft</span>
                             </td>
-                            <td th:text="${#temporals.format(listing.createdAt, 'yyyy-MM-dd')}">2025-01-01</td>
+                            <td th:text="${#temporals.format(listing.createdAt, 'MMM dd, yyyy')}">2025-01-01</td>
                             <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a th:href="@{/listings/{id}(id=${listing.id})}" class="btn btn-info" title="View Listing">
-                                        <i class="fa-solid fa-eye"></i> View
-                                    </a>
-                                    <a th:href="@{/host/listings/{id}/edit(id=${listing.id})}" class="btn btn-warning" title="Edit Listing">
-                                        <i class="fa-solid fa-pen"></i> Edit
-                                    </a>
-                                    <button type="button" class="btn btn-danger delete-btn"
+                                <div style="display: flex; gap: 8px;">
+                                    <a th:href="@{/listings/{id}(id=${listing.id})}" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 4px 12px;">View</a>
+                                    <a th:href="@{/host/listings/{id}/edit(id=${listing.id})}" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 4px 12px;">Edit</a>
+                                    <button type="button" class="hn-btn hn-btn-outline delete-btn"
+                                            style="font-size: 11px; padding: 4px 12px; border-color: var(--hn-error); color: var(--hn-error);"
                                             data-bs-toggle="modal" data-bs-target="#deleteModal"
                                             th:data-id="${listing.id}"
-                                            th:data-title="${listing.title}">
-                                        <i class="fa-solid fa-trash"></i> Delete
-                                    </button>
+                                            th:data-title="${listing.title}">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -318,47 +65,39 @@
             </div>
         </div>
 
-        <div th:if="${listings == null or listings.isEmpty()}" class="alert alert-info">
-            You don't have any listings yet. Create your first listing to get started!
+        <div th:if="${listings == null or listings.isEmpty()}" style="text-align: center; padding: 128px 0;">
+            <h3 class="hn-headline-md" style="color: var(--hn-secondary); margin-bottom: 16px;">No listings yet</h3>
+            <p class="hn-body-lg" style="color: var(--hn-outline); margin-bottom: 24px;">You don't have any listings yet. Create your first listing to start hosting guests!</p>
+            <a href="/host/listings/new" class="hn-btn hn-btn-primary">+ Create Your First Listing</a>
         </div>
     </div>
 
-    <!-- Shared Delete Confirmation Modal -->
+    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="deleteLabel">
-                        <i class="fa-solid fa-triangle-exclamation me-2"></i>Delete Listing
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <div style="background: var(--hn-surface); border: 1px solid rgba(30, 27, 22, 0.1); padding: 0;">
+                <div style="background: var(--hn-on-surface); color: var(--hn-surface); padding: 32px;">
+                    <h3 class="hn-headline-md" id="deleteLabel">Delete Listing</h3>
                 </div>
-                <div class="modal-body">
-                    <p class="mb-2">Are you sure you want to delete this listing?</p>
-                    <p class="fw-bold text-primary" id="deleteListingTitle">Listing Title</p>
-                    <p class="text-muted small mb-0">This action cannot be undone.</p>
+                <div style="padding: 40px;">
+                    <p class="hn-body-md" style="margin-bottom: 16px;">Are you sure you want to delete this listing?</p>
+                    <p class="hn-body-lg" style="font-weight: 600; color: var(--hn-primary);" id="deleteListingTitle">Listing Title</p>
+                    <p class="hn-body-sm" style="color: var(--hn-secondary);">This action cannot be undone.</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div style="padding: 24px 40px; border-top: 1px solid rgba(30, 27, 22, 0.1); display: flex; justify-content: flex-end; gap: 16px;">
+                    <button type="button" class="hn-btn hn-btn-outline" data-bs-dismiss="modal">Cancel</button>
                     <form id="deleteForm" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa-solid fa-trash me-1"></i>Delete Listing
-                        </button>
+                        <button type="submit" class="hn-btn hn-btn-primary" style="background: var(--hn-error);">Delete Listing</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-light text-center text-muted py-4 mt-5">
-        <div class="container">
-            <p>&copy; 2025 HomeNest. All rights reserved.</p>
-        </div>
-    </footer>
+    <div th:insert="~{fragments/footer :: footer}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Wire up shared delete modal to the clicked row
         const deleteModal = document.getElementById('deleteModal');
         if (deleteModal) {
             deleteModal.addEventListener('show.bs.modal', event => {
@@ -366,16 +105,10 @@
                 if (!trigger) return;
                 const listingId = trigger.getAttribute('data-id');
                 const listingTitle = trigger.getAttribute('data-title');
-
                 const titleEl = document.getElementById('deleteListingTitle');
-                if (titleEl) {
-                    titleEl.textContent = listingTitle || '';
-                }
-
+                if (titleEl) { titleEl.textContent = listingTitle || ''; }
                 const form = document.getElementById('deleteForm');
-                if (form) {
-                    form.setAttribute('action', `/host/listings/${listingId}/delete`);
-                }
+                if (form) { form.setAttribute('action', `/host/listings/${listingId}/delete`); }
             });
         }
     </script>

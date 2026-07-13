@@ -4,260 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listings Management - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: var(--text);
-            background: var(--bg);
-        }
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.95rem;
-        }
-        .filter-card {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            background: var(--card-bg);
-        }
-        .filter-card input,
-        .filter-card select {
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        .filter-card input:focus,
-        .filter-card select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.15);
-        }
-        .table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .table thead th {
-            font-weight: 800;
-            border: none;
-        }
-        .table tbody tr {
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--border);
-        }
-        .table tbody tr:hover {
-            background-color: rgba(99, 102, 241, 0.05);
-        }
-        .badge-published {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            color: #059669;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-        }
-        .badge-unpublished {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-            color: #dc2626;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-weight: 700;
-        }
-        .btn-dark {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-dark:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-        .btn-outline-secondary {
-            border-radius: 10px;
-            border: 2px solid var(--border);
-            color: var(--text);
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-outline-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: transparent;
-        }
-        .btn-outline-dark {
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-outline-dark:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .card {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
 <div th:insert="~{fragments/navbar :: navbar}"></div>
 
-<div class="container-lg py-4">
-    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+<div class="hn-container" style="padding-top: 128px; padding-bottom: 128px;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px;">
         <div>
-            <div class="pill"><i class="fa-solid fa-hotel"></i> Listings Management</div>
-            <h2 class="fw-bold mt-3 mb-1">All properties across hosts</h2>
-            <p class="text-secondary mb-0">
-                Total: <span th:text="${totalListings}">0</span> listings · 
-                Published: <span th:text="${publishedListings}">0</span> · 
-                Unpublished: <span th:text="${unpublishedListings}">0</span>
-            </p>
+            <h1 class="hn-headline-lg">Listings Management</h1>
+            <p class="hn-body-lg" style="color: var(--hn-secondary);">All properties across hosts &middot; Total: <span th:text="${totalListings}">0</span> &middot; Published: <span th:text="${publishedListings}">0</span> &middot; Unpublished: <span th:text="${unpublishedListings}">0</span></p>
         </div>
-        <a class="btn btn-outline-dark" href="/admin/dashboard">Dashboard</a>
+        <a class="hn-btn hn-btn-outline" href="/admin/dashboard">Dashboard</a>
     </div>
 
-    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fa-solid fa-circle-check me-2"></i><span th:text="${success}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+    <div th:if="${success}" class="hn-alert hn-alert-success" role="alert" th:text="${success}"></div>
 
     <!-- Filters -->
-    <div class="filter-card p-4 mb-4">
-        <form method="get" th:action="@{/admin/listings}" class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label small text-muted mb-2 fw-700">City</label>
-                <input type="text" class="form-control" name="city" th:value="${city}" placeholder="e.g. Karachi">
+    <div class="hn-content-card">
+        <form method="get" th:action="@{/admin/listings}" style="display: flex; gap: 16px; align-items: end; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 150px;">
+                <label class="hn-label-sm">City</label>
+                <input type="text" class="hn-input" name="city" th:value="${city}" placeholder="e.g. Karachi">
             </div>
-            <div class="col-md-2">
-                <label class="form-label small text-muted mb-2 fw-700">Status</label>
-                <select class="form-select" name="published">
+            <div style="flex: 1; min-width: 150px;">
+                <label class="hn-label-sm">Status</label>
+                <select class="hn-input" name="published">
                     <option value="">All</option>
                     <option value="true" th:selected="${published == 'true'}">Published</option>
                     <option value="false" th:selected="${published == 'false'}">Unpublished</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                <label class="form-label small text-muted mb-2 fw-700">Min Price (PKR)</label>
-                <input type="number" class="form-control" name="minPrice" th:value="${minPrice}" placeholder="0">
+            <div style="flex: 1; min-width: 150px;">
+                <label class="hn-label-sm">Min Price (PKR)</label>
+                <input type="number" class="hn-input" name="minPrice" th:value="${minPrice}" placeholder="0">
             </div>
-            <div class="col-md-2">
-                <label class="form-label small text-muted mb-2 fw-700">Max Price (PKR)</label>
-                <input type="number" class="form-control" name="maxPrice" th:value="${maxPrice}" placeholder="999999">
+            <div style="flex: 1; min-width: 150px;">
+                <label class="hn-label-sm">Max Price (PKR)</label>
+                <input type="number" class="hn-input" name="maxPrice" th:value="${maxPrice}" placeholder="999999">
             </div>
-            <div class="col-md-3 d-flex gap-2">
-                <button type="submit" class="btn btn-dark flex-fill"><i class="fa-solid fa-filter"></i> Filter</button>
-                <a href="/admin/listings" class="btn btn-outline-secondary flex-fill">Reset</a>
+            <div style="display: flex; gap: 8px;">
+                <button type="submit" class="hn-btn hn-btn-primary">Filter</button>
+                <a href="/admin/listings" class="hn-btn hn-btn-outline">Reset</a>
             </div>
         </form>
     </div>
 
     <!-- Listings Table -->
-    <div class="card border-0">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>City</th>
-                            <th>Host</th>
-                            <th class="text-end">Price/night</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="listing : ${listings}">
-                            <td th:text="${listing.id}">1</td>
-                            <td>
-                                <a th:href="@{'/listings/' + ${listing.id}}" target="_blank" th:text="${listing.title}">Listing</a>
-                            </td>
-                            <td th:text="${listing.city}">City</td>
-                            <td th:text="${listing.host.username}">host</td>
-                            <td class="text-end">PKR <span th:text="${#numbers.formatDecimal(listing.pricePerNight, 0, 'COMMA', 0, 'POINT')}">0</span></td>
-                            <td>
-                                <span class="badge" th:classappend="${listing.isPublished ? 'badge-published' : 'badge-unpublished'}" 
-                                      th:text="${listing.isPublished ? 'Published' : 'Unpublished'}">Status</span>
-                            </td>
-                            <td th:text="${#temporals.format(listing.createdAt, 'yyyy-MM-dd')}">date</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a class="btn btn-sm btn-outline-primary" th:href="@{'/listings/' + ${listing.id}}" target="_blank" title="View">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                    <form method="post" th:action="@{'/admin/listings/' + ${listing.id} + '/toggle-publish'}" style="display:inline;">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary" 
-                                                th:title="${listing.isPublished ? 'Unpublish' : 'Publish'}">
-                                            <i class="fa-solid" th:classappend="${listing.isPublished ? 'fa-eye-slash' : 'fa-check'}"></i>
-                                        </button>
-                                    </form>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" 
-                                            data-bs-toggle="modal" 
-                                            th:data-bs-target="'#deleteModal' + ${listing.id}" 
-                                            title="Delete">
-                                        <i class="fa-solid fa-trash"></i>
+    <div class="hn-content-card">
+        <div th:if="${listings.isEmpty()}" style="text-align: center; padding: 64px 0;">
+            <p class="hn-body-lg" style="color: var(--hn-secondary);">No listings found. Try adjusting filters.</p>
+        </div>
+        <div th:unless="${listings.isEmpty()}" style="overflow-x: auto;">
+            <table class="hn-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>City</th>
+                        <th>Host</th>
+                        <th>Price/night</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="listing : ${listings}">
+                        <td th:text="${listing.id}">1</td>
+                        <td><a th:href="@{'/listings/' + ${listing.id}}" target="_blank" th:text="${listing.title}" style="color: var(--hn-primary); text-decoration: none;">Listing</a></td>
+                        <td th:text="${listing.city}">City</td>
+                        <td th:text="${listing.host.username}">host</td>
+                        <td>PKR <span th:text="${#numbers.formatDecimal(listing.pricePerNight, 0, 'COMMA', 0, 'POINT')}">0</span></td>
+                        <td>
+                            <span th:if="${listing.isPublished}" class="hn-badge hn-badge-confirmed">Published</span>
+                            <span th:unless="${listing.isPublished}" class="hn-badge hn-badge-cancelled">Unpublished</span>
+                        </td>
+                        <td th:text="${#temporals.format(listing.createdAt, 'yyyy-MM-dd')}">date</td>
+                        <td>
+                            <div style="display: flex; gap: 8px;">
+                                <a class="hn-btn hn-btn-outline" th:href="@{'/listings/' + ${listing.id}}" target="_blank" style="font-size: 11px; padding: 4px 12px;">View</a>
+                                <form method="post" th:action="@{'/admin/listings/' + ${listing.id} + '/toggle-publish'}" style="display:inline;">
+                                    <button type="submit" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 4px 12px;">
+                                        <span th:text="${listing.isPublished ? 'Unpublish' : 'Publish'}">Toggle</span>
                                     </button>
-                                </div>
+                                </form>
+                                <button type="button" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 4px 12px; border-color: var(--hn-error); color: var(--hn-error);" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${listing.id}">Delete</button>
+                            </div>
 
-                                <!-- Delete Confirmation Modal -->
-                                <div class="modal fade" th:id="'deleteModal' + ${listing.id}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Confirm Delete</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure you want to delete "<span th:text="${listing.title}"></span>"? This action cannot be undone.
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <form method="post" th:action="@{'/admin/listings/' + ${listing.id} + '/delete'}" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </form>
-                                            </div>
+                            <div class="modal fade" th:id="'deleteModal' + ${listing.id}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div style="background: var(--hn-surface); border: 1px solid rgba(30, 27, 22, 0.1);">
+                                        <div style="padding: 32px;">
+                                            <h4 class="hn-headline-md" style="margin-bottom: 16px;">Confirm Delete</h4>
+                                            <p class="hn-body-md">Are you sure you want to delete "<span th:text="${listing.title}"></span>"? This action cannot be undone.</p>
+                                        </div>
+                                        <div style="padding: 24px 32px; border-top: 1px solid rgba(30, 27, 22, 0.1); display: flex; justify-content: flex-end; gap: 16px;">
+                                            <button type="button" class="hn-btn hn-btn-outline" data-bs-dismiss="modal">Cancel</button>
+                                            <form method="post" th:action="@{'/admin/listings/' + ${listing.id} + '/delete'}" style="display:inline;">
+                                                <button type="submit" class="hn-btn hn-btn-primary" style="background: var(--hn-error);">Delete</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(listings)}">
-                            <td colspan="8" class="text-center text-secondary py-4">No listings found. Try adjusting filters.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

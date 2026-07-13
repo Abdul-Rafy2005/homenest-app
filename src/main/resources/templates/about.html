@@ -4,359 +4,65 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>About - HomeNest</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<style>
-		:root {
-			--primary: #6366f1;
-			--primary-dark: #4f46e5;
-			--secondary: #ec4899;
-			--success: #10b981;
-			--warning: #f59e0b;
-			--danger: #ef4444;
-			--info: #06b6d4;
-			--text: #1f2937;
-			--text-light: #6b7280;
-			--bg: #f9fafb;
-			--card-bg: #ffffff;
-			--border: #e5e7eb;
-		}
-		body {
-			font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-			color: var(--text);
-			background: var(--bg);
-		}
-		.hero {
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			border-bottom: 1px solid var(--border);
-			color: white;
-			padding: 80px 0;
-		}
-		.hero-card {
-			background: rgba(255, 255, 255, 0.98);
-			border: 1px solid rgba(229, 231, 235, 0.5);
-			box-shadow: 0 25px 50px rgba(99, 102, 241, 0.15);
-			border-radius: 24px;
-			padding: 40px;
-		}
-		.pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 10px 18px;
-			border-radius: 20px;
-			background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-			color: var(--primary);
-			font-weight: 700;
-			font-size: 0.95rem;
-		}
-		.stat-card, .story-card {
-			background: var(--card-bg);
-			border: 1px solid var(--border);
-			border-radius: 20px;
-			padding: 28px;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-			height: 100%;
-			transition: all 0.3s ease;
-		}
-		.stat-card:hover, .story-card:hover {
-			transform: translateY(-8px);
-			box-shadow: 0 12px 30px rgba(99, 102, 241, 0.15);
-		}
-		.stat-value {
-			font-size: 2.5rem;
-			font-weight: 800;
-			background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			margin-bottom: 8px;
-		}
-		.badge-soft {
-			background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-			color: var(--primary);
-			border-radius: 12px;
-			padding: 8px 16px;
-			font-weight: 700;
-			font-size: 0.9rem;
-			display: inline-block;
-		}
-		.timeline-dot {
-			width: 12px;
-			height: 12px;
-			border-radius: 50%;
-			background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-			box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-		}
-		.team-card img {
-			width: 72px;
-			height: 72px;
-			border-radius: 50%;
-			object-fit: cover;
-			border: 4px solid var(--primary);
-		}
-		.cta-card {
-			background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-			color: #ffffff;
-			border-radius: 24px;
-			padding: 48px;
-			box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
-		}
-		.cta-card h3 {
-			font-weight: 800;
-			font-size: 1.8rem;
-			margin-bottom: 16px;
-		}
-		.cta-card p {
-			font-size: 1.1rem;
-			opacity: 0.95;
-			margin-bottom: 24px;
-		}
-		.cta-card .btn {
-			background: white;
-			color: var(--primary);
-			border: none;
-			border-radius: 12px;
-			font-weight: 700;
-			padding: 12px 32px;
-			transition: all 0.3s ease;
-		}
-		.cta-card .btn:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-		}
-		.section-title {
-			font-size: 1rem;
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			color: var(--primary);
-			font-weight: 800;
-			margin-bottom: 16px;
-		}
-		.section-heading {
-			font-size: 2.2rem;
-			font-weight: 800;
-			color: var(--text);
-			margin-bottom: 40px;
-		}
-	</style>
+	<link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
 <div th:insert="~{fragments/navbar :: navbar}"></div>
 
-<section class="hero py-5">
-	<div class="container py-2 py-md-4">
-		<div class="row align-items-center g-4">
-			<div class="col-lg-6">
-				<div class="pill"><i class="fa-solid fa-heart"></i> Crafted for explorers in Pakistan</div>
-				<h1 class="display-5 fw-bold mt-3 mb-3" style="color: white;">We make authentic stays easy, local, and memorable.</h1>
-				<p class="lead" style="color: white;">HomeNest connects backpackers, students, and families with welcoming hosts across Pakistan's most vibrant cities. Built with care, security, and a modern booking experience.</p>
-				<div class="d-flex flex-wrap gap-3 mt-3">
-					<span class="badge-soft" style="background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3);"><i class="fa-solid fa-shield"></i> Secure & Verified</span>
-					<span class="badge-soft" style="background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3);"><i class="fa-solid fa-mobile-screen"></i> Mobile-first</span>
-					<span class="badge-soft" style="background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3);"><i class="fa-solid fa-globe"></i> 8 cities & growing</span>
-				</div>
+<!-- Hero -->
+<section class="hn-dashboard-header" style="padding: 128px 0;">
+	<div class="hn-container">
+		<span class="hn-label-sm" style="color: var(--hn-inverse-primary); letter-spacing: 0.3em; display: block; margin-bottom: 32px;">Crafted for explorers in Pakistan</span>
+		<h1 class="hn-display-xl" style="font-size: clamp(48px, 8vw, 80px); margin-bottom: 32px;">We make authentic stays easy, local, and memorable.</h1>
+		<p class="hn-body-lg" style="opacity: 0.8; max-width: 640px;">HomeNest connects backpackers, students, and families with welcoming hosts across Pakistan's most vibrant cities. Built with care, security, and a modern booking experience.</p>
+	</div>
+</section>
+
+<!-- Story -->
+<section class="hn-section">
+	<div class="hn-container">
+		<div style="margin-bottom: 64px;">
+			<div class="hn-label-sm" style="color: var(--hn-primary); margin-bottom: 16px;">Story</div>
+			<h2 class="hn-headline-lg">Why we built HomeNest</h2>
+		</div>
+		<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+			<div style="border: 1px solid rgba(30, 27, 22, 0.1); padding: 32px;">
+				<div class="hn-label-sm" style="color: var(--hn-secondary); margin-bottom: 16px;">Local-first</div>
+				<h3 class="hn-headline-md" style="margin-bottom: 16px;">Authentic Pakistani stays</h3>
+				<p class="hn-body-md" style="color: var(--hn-secondary);">Listings reflect real neighborhoods — from Karachi's sea breeze to Lahore's heritage sites — so guests get a grounded experience.</p>
 			</div>
-			<div class="col-lg-6">
-				<div class="hero-card">
-					<div class="d-flex align-items-center mb-3">
-						<div class="timeline-dot me-2"></div>
-						<span class="fw-semibold text-uppercase text-muted">Our Focus</span>
-					</div>
-					<h4 class="fw-bold mb-3">Trust, design quality, and real local stays.</h4>
-					<p class="text-secondary mb-4">Every flow—from browsing to booking—is crafted to feel premium yet approachable. We seed real hostel data to make the demo feel live, and we prepared API hooks for future integrations.</p>
-					<div class="row g-3">
-						<div class="col-sm-6">
-							<div class="stat-card">
-								<div class="stat-value">40+</div>
-								<div class="fw-semibold">Curated hostels</div>
-								<div class="text-secondary small">Across 8 Pakistani cities</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="stat-card">
-								<div class="stat-value">3.5s</div>
-								<div class="fw-semibold">Avg page load</div>
-								<div class="text-secondary small">Optimized, mobile-first UX</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div style="border: 1px solid rgba(30, 27, 22, 0.1); padding: 32px;">
+				<div class="hn-label-sm" style="color: var(--hn-secondary); margin-bottom: 16px;">Design</div>
+				<h3 class="hn-headline-md" style="margin-bottom: 16px;">Next-level UI/UX</h3>
+				<p class="hn-body-md" style="color: var(--hn-secondary);">Airbnb-inspired visuals, cohesive spacing, modern typography, and smooth interactions make every page feel premium.</p>
+			</div>
+			<div style="border: 1px solid rgba(30, 27, 22, 0.1); padding: 32px;">
+				<div class="hn-label-sm" style="color: var(--hn-secondary); margin-bottom: 16px;">Trust</div>
+				<h3 class="hn-headline-md" style="margin-bottom: 16px;">Security baked in</h3>
+				<p class="hn-body-md" style="color: var(--hn-secondary);">Spring Security, role-based navigation, and carefully prepared API hooks with explicit opt-in keep the platform safe.</p>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="py-5">
-	<div class="container">
-		<div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+<!-- CTA -->
+<section class="hn-section">
+	<div class="hn-container">
+		<div style="background: var(--hn-on-surface); color: var(--hn-surface); padding: 96px 64px; display: flex; justify-content: space-between; align-items: center; gap: 48px; flex-wrap: wrap;">
 			<div>
-				<div class="section-title">Story</div>
-				<h2 class="fw-bold">Why we built HomeNest</h2>
-				<p class="text-secondary mb-0">Designed for backpackers, students, and families who want dependable, affordable, and character-filled stays.</p>
+				<div class="hn-label-sm" style="opacity: 0.6; letter-spacing: 0.1em; margin-bottom: 16px;">Ready when you are</div>
+				<h2 class="hn-headline-lg" style="margin-bottom: 16px;">Explore authentic stays or list yours today.</h2>
+				<p class="hn-body-lg" style="opacity: 0.8;">Browse, book, host, and import external data safely when you are ready.</p>
 			</div>
-			<div class="badge-soft"><i class="fa-solid fa-sparkles"></i> Product DNA</div>
-		</div>
-		<div class="row g-4">
-			<div class="col-lg-4 col-md-6">
-				<div class="story-card h-100">
-					<div class="d-flex align-items-center mb-2 gap-2"><div class="timeline-dot"></div><span class="fw-semibold text-muted">Local-first</span></div>
-					<h5 class="fw-bold">Authentic Pakistani stays</h5>
-					<p class="text-secondary mb-0">Listings reflect real neighborhoods—from Karachi's sea breeze to Lahore's heritage sites—so guests get a grounded experience.</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="story-card h-100">
-					<div class="d-flex align-items-center mb-2 gap-2"><div class="timeline-dot"></div><span class="fw-semibold text-muted">Design</span></div>
-					<h5 class="fw-bold">Next-level UI/UX</h5>
-					<p class="text-secondary mb-0">Airbnb-inspired visuals, cohesive spacing, modern typography, and smooth interactions make every page feel premium.</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-12">
-				<div class="story-card h-100">
-					<div class="d-flex align-items-center mb-2 gap-2"><div class="timeline-dot"></div><span class="fw-semibold text-muted">Trust</span></div>
-					<h5 class="fw-bold">Security baked in</h5>
-					<p class="text-secondary mb-0">Spring Security, role-based navigation, and carefully prepared API hooks with explicit opt-in keep the platform safe.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="py-5 bg-white">
-	<div class="container">
-		<div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-			<div>
-				<div class="section-title">Coverage</div>
-				<h2 class="fw-bold">8 cities, 40+ curated hostels</h2>
-				<p class="text-secondary mb-0">Focused on Pakistan's most traveled corridors—coastal Karachi to cultural Lahore and serene Islamabad.</p>
-			</div>
-			<div class="badge-soft"><i class="fa-solid fa-map-location-dot"></i> Nationwide footprint</div>
-		</div>
-		<div class="row g-3">
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Karachi</div>
-					<div class="text-secondary small">Sea views, downtown vibes</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Lahore</div>
-					<div class="text-secondary small">Heritage and food trails</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Islamabad</div>
-					<div class="text-secondary small">Green hills, calm stays</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Peshawar</div>
-					<div class="text-secondary small">Historic bazaars</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Hyderabad</div>
-					<div class="text-secondary small">Cultural heart</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Quetta</div>
-					<div class="text-secondary small">Mountain gateways</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Faisalabad</div>
-					<div class="text-secondary small">Industry meets comfort</div>
-				</div>
-			</div>
-			<div class="col-6 col-md-3">
-				<div class="stat-card text-center">
-					<div class="stat-value">5</div>
-					<div class="fw-semibold">Multan</div>
-					<div class="text-secondary small">Sufi heritage stays</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="py-5">
-	<div class="container">
-		<div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-			<div>
-				<div class="section-title">Team DNA</div>
-				<h2 class="fw-bold">Product, engineering, and host-first mindset</h2>
-				<p class="text-secondary mb-0">We blend thoughtful UX, strong engineering, and real host empathy to ship fast and responsibly.</p>
-			</div>
-			<div class="badge-soft"><i class="fa-solid fa-users"></i> People-first</div>
-		</div>
-		<div class="row g-4">
-			<div class="col-lg-4 col-md-6">
-				<div class="stat-card team-card h-100 d-flex gap-3 align-items-start">
-					<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Product Lead">
-					<div>
-						<div class="fw-bold">Product & UX</div>
-						<div class="text-secondary small mb-2">Designing flows that feel delightful, trusted, and fast.</div>
-						<span class="badge-soft">Accessibility-first</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="stat-card team-card h-100 d-flex gap-3 align-items-start">
-					<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Engineering">
-					<div>
-						<div class="fw-bold">Engineering</div>
-						<div class="text-secondary small mb-2">Spring Boot 3, secure auth, API hooks, and resilient data seeding.</div>
-						<span class="badge-soft">Security & scalability</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-12">
-				<div class="stat-card team-card h-100 d-flex gap-3 align-items-start">
-					<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Hosts">
-					<div>
-						<div class="fw-bold">Hosts & Operations</div>
-						<div class="text-secondary small mb-2">Clear dashboards, booking insight, and publishing controls for every host.</div>
-						<span class="badge-soft">Host empowerment</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="py-5">
-	<div class="container">
-		<div class="cta-card d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
-			<div>
-				<div class="text-uppercase fw-semibold" style="letter-spacing: 0.08em;">Ready when you are</div>
-				<h3 class="fw-bold mt-2 mb-2">Explore authentic stays or list yours today.</h3>
-				<p class="mb-0">Browse, book, host, and import external data safely when you are ready.</p>
-			</div>
-			<div class="d-flex gap-2">
-				<a class="btn btn-outline-light btn-lg" href="/" style="border-color: rgba(255, 255, 255, 0.5); color: #06b6d4; font-weight: 700;">Start exploring</a>
-				<a class="btn btn-outline-light btn-lg" href="/listing-form" style="border-color: rgba(255, 255, 255, 0.5); color: #06b6d4; font-weight: 700;">List your place</a>
+			<div style="display: flex; gap: 16px;">
+				<a class="hn-btn" href="/" style="border-color: rgba(255,255,255,0.3); color: var(--hn-surface);">Start exploring</a>
+				<a class="hn-btn" href="/host/listings/new" sec:authorize="hasRole('HOST')" style="border-color: rgba(255,255,255,0.3); color: var(--hn-surface);">List your place</a>
+				<a class="hn-btn" href="/register" sec:authorize="!isAuthenticated()" style="border-color: rgba(255,255,255,0.3); color: var(--hn-surface);">Become a Host</a>
 			</div>
 		</div>
 	</div>
 </section>
 
 <div th:insert="~{fragments/footer :: footer}"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

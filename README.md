@@ -1,293 +1,233 @@
 # HomeNest App
 
-HomeNest is a modern, Airbnb‑inspired accommodation platform built with Spring Boot and Thymeleaf. It focuses on Pakistan’s hostel market, providing realistic listings, clean booking flows, and a full-featured admin panel for business operations.
+HomeNest is a modern accommodation platform built with Spring Boot 3.5, Thymeleaf, and PostgreSQL. It features a Boutique Editorial design system (Playfair Display + Work Sans, warm cream palette, 0px corners, 1px borders, no shadows) and runs fully containerized with Docker.
 
 ---
 
 ## 1. What HomeNest Offers
 
 ### For Guests
-- Browse 40+ realistic hostel listings across 8 major Pakistani cities.
-- Search by city and price range from a modern, responsive home page.
+- Browse published listings across Pakistani cities.
+- Search by city and price range from a responsive home page.
 - View rich listing details with property type, capacity, address, and pricing.
 - Create bookings with date validation and conflict checks.
-- Track reservations through a “My Bookings” dashboard.
+- Track reservations through a "My Bookings" dashboard.
 - Leave ratings and reviews after completed stays (one review per stay).
 
 ### For Hosts
-- Manage your own listings from a dedicated Host Dashboard.
+- Manage your own listings from a dedicated Host Dashboard with dynamic KPIs.
 - Create, edit, publish/unpublish, and delete properties.
 - See booking requests for owned listings, and confirm or reject them.
-- Track basic earnings and booking stats across your properties.
-- Read guest reviews consolidated for your listings.
+- Track earnings, commission paid, and booking stats across your properties.
+- Create and manage discount codes for your properties.
 
 ### For Admins
-- Operate a professional control panel with six main areas:
-  - Dashboard
-  - Listings
-  - Users
-  - Transactions
-  - Sales Reports
-  - Discounts
-- Monitor KPIs: users, listings, bookings, revenue, and today’s performance.
-- Analyze revenue by city and top-performing listings.
-- Manage users (promote/demote, delete), listings (publish/delete), and discounts.
-- Export transaction data as CSV for reporting and accounting.
+- Full control panel with six areas: Dashboard, Listings, Users, Transactions, Sales Reports, Discounts.
+- Dynamic KPIs: users, listings, bookings, revenue, today's performance, month-to-date.
+- Revenue by city and top-performing listings analysis.
+- User management (promote/demote, delete), listing moderation (publish/delete), and discount CRUD.
+- CSV export of transaction data.
 
 ---
 
 ## 2. Core Features
 
 ### Guest & Booking Experience
-- Modern, mobile‑friendly browsing with an Airbnb‑style home page.
-- Detailed listing pages with structured property info and a booking summary panel.
-- Booking creation flow that validates dates and prevents overlapping reservations.
-- Booking success page with clear confirmation and reference details.
-- Guest bookings dashboard with status badges and clear history.
+- Responsive home page with search by city and price range.
+- Detailed listing pages with structured property info and booking panel.
+- Booking creation flow with date validation and conflict prevention.
+- Booking success page with confirmation and reference details.
+- Guest bookings dashboard with status badges and history.
 
 ### Host Tools
-- Host dashboard listing all properties owned by the host user.
-- Clear table views for listings and booking requests.
-- Simple flows to:
-  - Create and manage property details.
-  - Review, accept, or reject guest booking requests.
+- Host dashboard with dynamic KPIs (listings, bookings, earnings, commission).
+- Quick actions for creating listings and navigating to bookings/reviews/discounts.
+- Create and manage property details with image upload support.
+- Review, accept, or reject guest booking requests.
+- Discount management with percentage-based promotional codes.
 
 ### Admin Control Panel
-
-**Dashboard**
-- High‑level KPIs for:
-  - Total users (with Hosts/Guests/Admins breakdown).
-  - Total listings (published vs unpublished).
-  - Bookings and all‑time revenue.
-- “Today’s Performance” metrics:
-  - Today’s bookings.
-  - Today’s revenue.
-  - Active users for the day.
-  - Current month revenue.
-- Top 10 listings ranked by revenue, with city, bookings, and average rating.
-- Recent transactions table with latest bookings.
-
-**Listings Management**
-- View all listings across all hosts.
-- Filters by city, status (published/unpublished), and price range.
-- Actions to view listing details, toggle publish state, and delete listings.
-- Published/unpublished counts at a glance.
-
-**User Management**
-- Summary cards for total users and breakdown by role (Host, Guest, Admin).
-- “New Users in last 30 days” metric.
-- Role badge display with clear color‑coding.
-- One‑click promote/demote between Guest and Host roles.
-- Admin accounts protected from deletion.
-
-**Transaction History**
-- Date range filters with sensible defaults (last 30 days).
-- Summary metrics: transaction count, total revenue, average booking value.
-- Transactions table with guest, host, listing, nights, amount, and status.
-- CSV export sharing the same filters, ready for spreadsheets and accounting.
-
-**Sales Reports**
-- Date‑driven reporting for revenue in a selected period.
-- Revenue by city table sorted by revenue.
-- Top listings in range with revenue and booking counts.
-- Quick insights into which cities and listings perform best over time.
-
-**Discount Management**
-- Central interface for discount codes and promotions.
-- Clearly labeled status badges (Active, Scheduled, Expired, Inactive).
-- Create, edit, and delete discount codes with descriptions, percentages, and validity ranges.
-- Status derived from active flag and date windows to avoid confusion.
+- Dashboard with KPIs, top listings, recent transactions, and quick-access cards.
+- Listings management with city/status/price filters.
+- User management with role-based badges and protected admin accounts.
+- Transaction history with date range filters and CSV export.
+- Sales reports with city-wise revenue breakdown and top listings analysis.
+- Discount management with status badges (Active, Scheduled, Expired, Inactive).
 
 ---
 
-## 3. Design & User Experience
+## 3. Design System
 
-HomeNest uses a consistent, modern design system:
+HomeNest uses a Boutique Editorial design system:
 
-- Airbnb‑inspired primary color palette centered around a vibrant red.
-- Clean typography with system fonts and clear size hierarchy.
-- Generous spacing, rounded cards, and soft shadows for elevation.
-- Responsive layouts:
-  - Multi‑column grids on desktop.
-  - Two‑column listing details with a sticky booking panel.
-  - Stacked, single‑column layouts on mobile.
-- Clear status badges and pill labels for bookings, roles, and discounts.
-- Reusable navbar and footer fragments for consistent navigation and branding.
-
-All layouts are built to be mobile‑first and work smoothly on phones, tablets, and desktops.
+- **Typography**: Playfair Display (headlines/display) + Work Sans (body/labels)
+- **Palette**: Warm cream surface (#fff8f2), deep brown text (#1e1b16), terracotta accent (#ab2e18)
+- **Corners**: 0px border-radius everywhere (enforced globally)
+- **Borders**: 1px solid rgba(30, 27, 22, 0.1) for cards, tables, and dividers
+- **Shadows**: None (removed globally)
+- **Components**: KPI row (auto-fit grid with 1px gap dividers), content cards, stat cards, badges, alerts, tables, buttons, inputs
+- **Responsive**: Multi-column grids on desktop, 2-column on tablet, single-column on mobile
 
 ---
 
-## 4. Data & Seed Content
+## 4. Tech Stack
 
-To make the app feel real out of the box, HomeNest includes seeded hostel data:
-
-- Over 40 hostel listings across 8 major Pakistani cities, including:
-  - Karachi
-  - Lahore
-  - Islamabad
-  - Peshawar
-  - Hyderabad
-  - Quetta
-  - Faisalabad
-  - Multan
-- Each listing:
-  - Is owned by a sample host account.
-  - Is published and visible on the home page by default.
-  - Has realistic names, locations, capacities, and nightly prices in PKR.
-
-This seed data is created automatically at startup if there are no existing listings in the database.
+- **Backend**: Spring Boot 3.5, Java 17, Spring Data JPA, Spring Security
+- **Frontend**: Thymeleaf, Bootstrap 5 (layout only), custom editorial CSS
+- **Database**: PostgreSQL 16 (via Docker)
+- **Containerization**: Docker Compose with multi-stage build
 
 ---
 
-## 5. External API Integration (Optional)
+## 5. Seed Data
 
-HomeNest ships with an integration framework for importing external accommodation data:
+The application starts with a single admin user:
 
-- A dedicated service prepares for connecting to APIs such as Hostelworld or Booking.com.
-- Configuration is controlled via properties and environment variables.
-- Integration is disabled by default for safety; you must explicitly turn it on.
-- The import flow:
-  - Fetches listings from an external API.
-  - Maps them to HomeNest’s internal listing model.
-  - Assigns ownership to a configured host account.
-- Admin endpoints and schedulers can trigger imports manually or on a schedule.
+| Username | Email | Password | Role |
+|----------|-------|----------|------|
+| admin | admin@homenest.com | 1234 | ROLE_ADMIN |
 
-This framework is ready to be customized for your chosen API provider and mapping rules.
+All hostel listings have been removed. The homepage shows dynamic published listings from the database (empty state when none exist). Register new host and guest accounts through the application.
 
 ---
 
-## 6. Security & Roles
-
-HomeNest uses a role‑based security model and secure UI patterns:
-
-- Roles:
-  - **ROLE_GUEST** – regular users who browse and book.
-  - **ROLE_HOST** – property owners managing listings and bookings.
-  - **ROLE_ADMIN** – administrators with access to the full control panel.
-- Admin endpoints live under the `/admin` path and are protected by role checks.
-- Front‑end templates conditionally render navigation links based on the logged‑in user’s role.
-- Admin features include:
-  - Protected admin accounts (not deletable from the UI).
-  - CSRF‑protected form submissions.
-  - Confirmation dialogs before destructive operations.
-
-Beyond platform roles, best‑practice recommendations include hashed passwords, secure storage of secrets, and HTTPS in production.
-
----
-
-## 7. Architecture Overview
-
-HomeNest is structured around clear separation of concerns:
-
-- **Backend**
-  - Spring Boot application with MVC pattern.
-  - Controllers grouped by persona: Home, Listing, Booking, Host, Admin, Auth.
-  - Service layer handling business logic for listings, bookings, users, discounts, and imports.
-  - JPA repositories for data persistence (Listing, Booking, User, Review, Discount).
-
-- **Frontend**
-  - Thymeleaf templates for views: home, listing detail, booking flows, dashboards.
-  - Shared fragments for navbar and footer.
-  - Bootstrap 5 for layout and components, with custom CSS theming.
-
-- **Reports & Analytics**
-  - Repository‑level aggregation queries for revenue, city breakdowns, and top listings.
-  - In‑memory grouping for complex admin reports.
-  - CSV export for transactional data.
-
----
-
-## 8. Getting Started
+## 6. Getting Started
 
 ### Prerequisites
-- JDK 17 or compatible Java version.
-- Maven.
-- MySQL or H2 database.
-- A configured database schema and at least one administrator account.
+- JDK 17+
+- Maven
+- Docker & Docker Compose (recommended)
 
-### Basic Steps
-1. Configure database connection and Hibernate settings.
-2. Start the application using Maven or a built JAR.
-3. Open the home page to browse seed listings.
-4. Register or login as:
-   - Guest: to test the booking flow.
-   - Host: to manage host listings and booking requests.
-   - Admin: to explore the full admin panel.
+### Option A: Docker (Recommended)
 
-For a faster admin start, a default admin account can be used (if present in your environment).
+```bash
+# From the project root
+docker compose up --build
+```
+
+This starts:
+- **PostgreSQL 16** on port 5432
+- **HomeNest app** on port 8080
+
+The database is created automatically. Tables and seed data (admin user) are populated on first run.
+
+### Option B: Local PostgreSQL
+
+1. Install and start PostgreSQL 16.
+2. Create a database:
+   ```sql
+   CREATE DATABASE homenest;
+   ```
+3. Configure connection in `src/main/resources/application.properties` or set environment variables:
+   ```bash
+   export DB_HOST=localhost
+   export DB_PORT=5432
+   export DB_NAME=homenest
+   export DB_USER=your_user
+   export DB_PASS=your_password
+   ```
+4. Build and run:
+   ```bash
+   mvn clean package -DskipTests
+   java -jar target/homenest-app-0.0.1-SNAPSHOT.jar
+   ```
+
+### Access
+
+Open `http://localhost:8080` in your browser.
 
 ---
 
-## 9. Typical User Flows to Try
+## 7. Default Accounts
+
+| Username | Email | Password | Role | Purpose |
+|----------|-------|----------|------|---------|
+| admin | admin@homenest.com | 1234 | ROLE_ADMIN | Full admin panel access |
+
+Register new accounts through the `/register` page:
+- **Guest** – browse, search, book properties, leave reviews.
+- **Host** – create listings, manage bookings, create discounts.
+
+---
+
+## 8. User Flows to Try
 
 ### Guests
-- Browse the home page, filter by city and price, and open listing details.
-- Create a booking for a selected property.
-- View booking confirmations and status in “My Bookings”.
-- Leave a review after a completed stay.
+1. Register a guest account at `/register`.
+2. Browse the home page and filter by city/price.
+3. Open a listing and create a booking.
+4. View booking status in "My Bookings".
+5. Leave a review after a completed stay.
 
 ### Hosts
-- Log in as a host user and open the Host Dashboard.
-- Review existing seeded listings and create a new one.
-- Inspect incoming booking requests and update their statuses.
+1. Register a host account at `/register`.
+2. Open the Host Dashboard and create a new listing.
+3. Publish the listing to make it visible to guests.
+4. View and respond to booking requests (confirm/reject).
+5. Create discount codes for your properties.
 
 ### Admins
-- Log in as an admin and open the Admin Dashboard.
-- Explore:
-  - KPI cards and today’s performance metrics.
-  - Top listings and recent transactions.
-  - Listings management with filters and publish toggles.
-  - User management with role changes and protections.
-  - Transaction history with date ranges and CSV export.
-  - Sales reports by city and listing.
-  - Discount management with status badges and CRUD actions.
+1. Log in with admin/admin@homenest.com/1234.
+2. Explore the Admin Dashboard with KPIs.
+3. Manage users, listings, transactions, and discounts.
+4. Run sales reports by city and date range.
+5. Export transactions as CSV.
 
 ---
 
-## 10. Roadmap & Future Enhancements
+## 9. Architecture
 
-Planned and recommended enhancements include:
+```
+src/main/java/com/homenest/homenest/
+├── config/          # SecurityConfig
+├── controller/      # Home, Listing, Booking, Host, Admin, Auth controllers
+├── model/           # User, Listing, Booking, Review, Discount entities
+├── repository/      # Spring Data JPA repositories
+└── service/         # Business logic layer
 
-- **User Experience**
-  - Real hostel imagery via hosted assets or integrations like Unsplash.
-  - More advanced search with date availability and combined filters.
-  - Multi‑language support (e.g., Urdu and English).
-
-- **Business Features**
-  - Payment gateway integration for live payments.
-  - Advanced host analytics and revenue insights.
-  - Email or messaging notifications for booking status changes.
-
-- **Technical Improvements**
-  - Pagination for large tables in host and admin views.
-  - Caching for frequently accessed dashboards and metrics.
-  - Rate limiting and duplicate detection for external imports.
-  - Additional test coverage for booking overlaps, security, and reporting.
-
----
-
-## 11. Documentation
-
-HomeNest includes extensive documentation for different audiences:
-
-- **UI Modernization Summary**  
-  Explains the design system, responsive layouts, and Pakistan hostel seed data.
-
-- **UI Layout Reference**  
-  Visual breakdowns of each major page, responsive behavior, and component styles.
-
-- **External API Integration Guide**  
-  Detailed instructions to configure and customize imports from third‑party listing providers.
-
-- **Admin Area Documentation & Quick Start**  
-  Deep technical reference and a practical walkthrough of the admin control panel.
-
-- **Project Completion Summary**  
-  High‑level overview of deliverables, build status, testing, and readiness for deployment.
-
-These guides are intended to help developers, admins, and stakeholders understand the system, extend it safely, and operate it effectively.
+src/main/resources/
+├── application.properties   # PostgreSQL config (DB_* env vars)
+├── static/css/editorial.css # Boutique Editorial design system
+├── static/images/           # Logo and assets
+└── templates/               # Thymeleaf templates
+    ├── fragments/           # navbar, footer
+    ├── home.html            # Published listings with search
+    ├── listing-detail.html  # Property details + booking panel
+    ├── host-*.html          # Host dashboard, listings, bookings, reviews, discounts
+    ├── guest-*.html         # Guest bookings
+    ├── admin-*.html         # Admin dashboard, users, listings, transactions, reports, discounts
+    └── *.html               # Auth, booking flow, about
+```
 
 ---
 
-HomeNest is designed as a production‑ready foundation for an accommodation platform centered on Pakistan’s hostel market, but it can be adapted to other regions or business models with minimal changes.
+## 10. Docker Configuration
+
+### Dockerfile
+Multi-stage build with BuildKit cache for fast rebuilds:
+- **Stage 1**: Maven build with cached dependencies
+- **Stage 2**: Lightweight JRE runtime
+
+### docker-compose.yml
+- `postgres`: PostgreSQL 16 Alpine, persistent volume, health check
+- `app`: Spring Boot app, depends on healthy Postgres, auto-creates schema
+
+### .dockerignore
+Excludes `target/`, `.git/`, IDE files, logs, and Docker files from the build context.
+
+---
+
+## 11. Roadmap
+
+- **Search**: Advanced filters with date availability
+- **Payments**: Gateway integration for live transactions
+- **Notifications**: Email/SMS for booking status changes
+- **Analytics**: Advanced host analytics and revenue insights
+- **Testing**: Comprehensive test coverage for booking overlaps and security
+- **Performance**: Pagination, caching, rate limiting
+
+---
+
+## 12. License
+
+This project is for educational and demonstration purposes.

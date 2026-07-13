@@ -4,384 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { 
-            --primary: #6366f1; 
-            --primary-dark: #4f46e5; 
-            --secondary: #ec4899; 
-            --success: #10b981; 
-            --warning: #f59e0b; 
-            --danger: #ef4444; 
-            --info: #06b6d4; 
-            --text: #1f2937; 
-            --text-light: #6b7280; 
-            --bg: #f9fafb; 
-            --card-bg: #ffffff; 
-            --border: #e5e7eb; 
-        }
-        body { 
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
-            color: var(--text); 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            min-height: 100vh;
-        }
-        .dashboard-container { background: var(--bg); border-radius: 24px 24px 0 0; margin-top: 2rem; padding: 2rem; min-height: calc(100vh - 100px); }
-        .header-section { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3); }
-        .header-section h1 { font-weight: 800; font-size: 2.5rem; margin: 0; }
-        .header-section p { opacity: 0.95; font-size: 1.1rem; margin: 0.5rem 0 0 0; }
-        .kpi-card { 
-            background: var(--card-bg); 
-            border: none; 
-            border-radius: 16px; 
-            padding: 1.5rem; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.07); 
-            transition: all 0.3s ease; 
-            height: 100%;
-        }
-        .kpi-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15); 
-        }
-        .kpi-card .icon-wrapper { 
-            width: 56px; 
-            height: 56px; 
-            border-radius: 14px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.6rem; 
-            margin-bottom: 1rem;
-        }
-        .icon-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .icon-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
-        .icon-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
-        .icon-info { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; }
-        .icon-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; }
-        .icon-secondary { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; }
-        .kpi-number { font-size: 2rem; font-weight: 800; color: var(--text); margin: 0.5rem 0; }
-        .kpi-label { color: var(--text-light); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-detail { color: var(--text-light); font-size: 0.85rem; margin-top: 0.5rem; }
-        .section-card { 
-            background: var(--card-bg); 
-            border: none; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.07); 
-            overflow: hidden;
-        }
-        .section-header { 
-            background: linear-gradient(90deg, #f9fafb 0%, #ffffff 100%); 
-            padding: 1.5rem; 
-            border-bottom: 2px solid var(--border);
-        }
-        .section-header h5 { font-weight: 700; color: var(--text); margin: 0; font-size: 1.2rem; }
-        .table { margin-bottom: 0; }
-        .table thead th { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            font-size: 0.75rem; 
-            letter-spacing: 0.5px; 
-            border: none; 
-            padding: 1rem;
-        }
-        .table tbody tr { transition: all 0.2s ease; }
-        .table tbody tr:hover { background: #f9fafb; transform: scale(1.01); }
-        .badge-status-PENDING { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none; padding: 0.4rem 0.8rem; font-weight: 600; }
-        .badge-status-CONFIRMED { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; padding: 0.4rem 0.8rem; font-weight: 600; }
-        .badge-status-CANCELLED { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: none; padding: 0.4rem 0.8rem; font-weight: 600; }
-        .badge-status-COMPLETED { background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); border: none; padding: 0.4rem 0.8rem; font-weight: 600; }
-        .btn-modern { 
-            border-radius: 10px; 
-            padding: 0.6rem 1.2rem; 
-            font-weight: 600; 
-            transition: all 0.3s ease;
-            border: none;
-        }
-        .btn-primary-modern { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
-        .btn-primary-modern:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3); color: white; }
-        .btn-success-modern { background: linear-gradient(135deg, var(--success) 0%, #059669 100%); color: white; }
-        .btn-success-modern:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3); color: white; }
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 2px solid var(--border);
-            transition: all 0.3s ease;
-            height: 100%;
-            cursor: pointer;
-        }
-        .feature-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(99, 102, 241, 0.2);
-        }
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 1rem;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-        .feature-title { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; font-size: 1.1rem; }
-        .feature-desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
 <div th:insert="~{fragments/navbar :: navbar}"></div>
 
-<div class="container-fluid">
-    <div class="dashboard-container">
-        <div class="header-section">
-            <h1><i class="fa-solid fa-gauge-high me-3"></i>Admin Dashboard</h1>
-            <p>Complete control panel for managing operations, users, listings, and analytics</p>
-        </div>
+<div class="hn-dashboard-header" style="padding: 80px 0;">
+    <div class="hn-container">
+        <span class="hn-label-sm" style="color: var(--hn-inverse-primary); letter-spacing: 0.3em; display: block; margin-bottom: 24px;">Admin</span>
+        <h1 class="hn-headline-xl">Admin Dashboard</h1>
+        <p class="hn-body-lg" style="opacity: 0.8;">Complete control panel for managing operations, users, listings, and analytics</p>
+    </div>
+</div>
 
-        <!-- KPI Cards -->
-        <div class="row g-4 mb-4">
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-primary"><i class="fa-solid fa-users"></i></div>
-                    <div class="kpi-label">Total Users</div>
-                    <div class="kpi-number" th:text="${totalUsers}">0</div>
-                    <div class="kpi-detail">
-                        <i class="fa-solid fa-user-tie me-1"></i><span th:text="${totalHosts}">0</span> Hosts · 
-                        <i class="fa-solid fa-user me-1"></i><span th:text="${totalGuests}">0</span> Guests
-                    </div>
-                    <a class="btn btn-primary-modern btn-modern w-100 mt-3" href="/admin/users">
-                        <i class="fa-solid fa-users-gear me-2"></i>Manage Users
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-success"><i class="fa-solid fa-hotel"></i></div>
-                    <div class="kpi-label">Total Listings</div>
-                    <div class="kpi-number" th:text="${totalListings}">0</div>
-                    <div class="kpi-detail">
-                        <i class="fa-solid fa-eye me-1"></i><span th:text="${publishedListings}">0</span> Published · 
-                        <i class="fa-solid fa-eye-slash me-1"></i><span th:text="${totalListings - publishedListings}">0</span> Hidden
-                    </div>
-                    <a class="btn btn-success-modern btn-modern w-100 mt-3" href="/admin/listings">
-                        <i class="fa-solid fa-building me-2"></i>Manage Listings
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-info"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div class="kpi-label">Total Bookings</div>
-                    <div class="kpi-number" th:text="${totalBookings}">0</div>
-                    <div class="kpi-detail">
-                        <i class="fa-solid fa-clock me-1"></i>All time reservations
-                    </div>
-                    <a class="btn btn-primary-modern btn-modern w-100 mt-3" href="/admin/transactions">
-                        <i class="fa-solid fa-receipt me-2"></i>View Transactions
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-warning"><i class="fa-solid fa-sack-dollar"></i></div>
-                    <div class="kpi-label">Total Revenue</div>
-                    <div class="kpi-number">PKR <span th:text="${#numbers.formatDecimal(allTimeRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
-                    <div class="kpi-detail">
-                        <i class="fa-solid fa-chart-line me-1"></i>Lifetime gross income
-                    </div>
-                    <a class="btn btn-success-modern btn-modern w-100 mt-3" href="/admin/reports/sales">
-                        <i class="fa-solid fa-chart-bar me-2"></i>Sales Report
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-success"><i class="fa-solid fa-piggy-bank"></i></div>
-                    <div class="kpi-label">Admin Commission</div>
-                    <div class="kpi-number">PKR <span th:text="${#numbers.formatDecimal(adminCommissionAllTime, 0, 'COMMA', 0, 'POINT')}">0</span></div>
-                    <div class="kpi-detail">
-                        <i class="fa-solid fa-percentage me-1"></i>Earned from 5% commission
-                    </div>
-                </div>
-            </div>
+<div class="hn-container" style="padding: 48px 0;">
+    <!-- KPI Cards -->
+    <div class="hn-kpi-row" style="margin-bottom: 48px;">
+        <div class="hn-kpi">
+            <div class="hn-kpi-number" th:text="${totalUsers}">0</div>
+            <div class="hn-kpi-label">Total Users</div>
+            <div class="hn-body-sm" style="color: var(--hn-secondary);"><span th:text="${totalHosts}">0</span> Hosts &middot; <span th:text="${totalGuests}">0</span> Guests</div>
         </div>
-
-        <!-- Today's Performance -->
-        <div class="row g-4 mb-4">
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-info"><i class="fa-solid fa-calendar-day"></i></div>
-                    <div class="kpi-label">Today's Bookings</div>
-                    <div class="kpi-number" th:text="${todayBookings}">0</div>
-                    <div class="kpi-detail"><i class="fa-solid fa-clock me-1"></i>New reservations today</div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-success"><i class="fa-solid fa-money-bill-trend-up"></i></div>
-                    <div class="kpi-label">Today's Revenue</div>
-                    <div class="kpi-number" style="font-size: 1.5rem;">PKR <span th:text="${#numbers.formatDecimal(todayRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
-                    <div class="kpi-detail"><i class="fa-solid fa-arrow-trend-up me-1"></i>Daily earnings</div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-secondary"><i class="fa-solid fa-coin"></i></div>
-                    <div class="kpi-label">Today's Commission</div>
-                    <div class="kpi-number" style="font-size: 1.5rem;">PKR <span th:text="${#numbers.formatDecimal(todayAdminCommission, 0, 'COMMA', 0, 'POINT')}">0</span></div>
-                    <div class="kpi-detail"><i class="fa-solid fa-percentage me-1"></i>Daily admin earnings</div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-secondary"><i class="fa-solid fa-user-check"></i></div>
-                    <div class="kpi-label">Active Users Today</div>
-                    <div class="kpi-number" th:text="${activeUsersToday}">0</div>
-                    <div class="kpi-detail"><i class="fa-solid fa-users me-1"></i>Guests + Hosts engaged</div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="kpi-card">
-                    <div class="icon-wrapper icon-warning"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div class="kpi-label">This Month Revenue</div>
-                    <div class="kpi-number" style="font-size: 1.5rem;">PKR <span th:text="${#numbers.formatDecimal(thisMonthRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
-                    <div class="kpi-detail"><i class="fa-solid fa-calendar me-1"></i>Monthly total</div>
-                </div>
-            </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number" th:text="${totalListings}">0</div>
+            <div class="hn-kpi-label">Total Listings</div>
+            <div class="hn-body-sm" style="color: var(--hn-secondary);"><span th:text="${publishedListings}">0</span> Published</div>
         </div>
-
-        <!-- Top Performing Listings -->
-        <div class="section-card mb-4">
-            <div class="section-header">
-                <h5><i class="fa-solid fa-trophy me-2" style="color: #f59e0b;"></i>Top Performing Listings</h5>
-            </div>
-            <div class="p-3">
-            <div class="table-responsive">
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Listing</th>
-                            <th>City</th>
-                            <th>Bookings</th>
-                            <th class="text-end">Revenue (PKR)</th>
-                            <th>Avg Rating</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="item : ${topListings}">
-                            <td><span class="badge bg-light text-dark" th:text="${item.rank}">1</span></td>
-                            <td><a th:href="@{'/listings/' + ${item.listingId}}" target="_blank" th:text="${item.title}">Listing</a></td>
-                            <td th:text="${item.city}">City</td>
-                            <td th:text="${item.bookingCount}">0</td>
-                            <td class="text-end" th:text="${#numbers.formatDecimal(item.revenue, 0, 'COMMA', 0, 'POINT')}">0</td>
-                            <td>
-                                <span th:if="${item.avgRating > 0}">
-                                    <i class="fa-solid fa-star text-warning"></i> <span th:text="${#numbers.formatDecimal(item.avgRating, 1, 'POINT', 1, 'POINT')}">0.0</span>
-                                </span>
-                                <span th:if="${item.avgRating == 0}" class="text-muted">No reviews</span>
-                            </td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(topListings)}">
-                            <td colspan="6" class="text-center text-secondary">No booking data yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number" th:text="${totalBookings}">0</div>
+            <div class="hn-kpi-label">Total Bookings</div>
+        </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(allTimeRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+            <div class="hn-kpi-label">Total Revenue</div>
+        </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(adminCommissionAllTime, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+            <div class="hn-kpi-label">Admin Commission</div>
         </div>
     </div>
 
-        <!-- Recent Transactions -->
-        <div class="section-card mb-4">
-            <div class="section-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"><i class="fa-solid fa-receipt me-2" style="color: #6366f1;"></i>Recent Transactions</h5>
-                <a class="btn btn-sm btn-primary-modern btn-modern" href="/admin/transactions">
-                    <i class="fa-solid fa-table me-1"></i>View All Transactions
-                </a>
-            </div>
-            <div class="p-3">
-            <div class="table-responsive">
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>Date/Time</th>
-                            <th>Guest</th>
-                            <th>Host</th>
-                            <th>Listing</th>
-                            <th>Status</th>
-                            <th class="text-end">Amount (PKR)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="b : ${recentBookings}">
-                            <td th:text="${#temporals.format(b.createdAt, 'yyyy-MM-dd HH:mm')}">date</td>
-                            <td th:text="${b.guest.username}">guest</td>
-                            <td th:text="${b.host.username}">host</td>
-                            <td><a th:href="@{'/listings/' + ${b.listing.id}}" target="_blank" th:text="${b.listing.title}">listing</a></td>
-                            <td><span class="badge" th:classappend="${'badge-status-' + b.bookingStatus}" th:text="${b.bookingStatus}">PENDING</span></td>
-                            <td class="text-end" th:text="${#numbers.formatDecimal(b.totalAmount, 0, 'COMMA', 0, 'POINT')}">0</td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(recentBookings)}">
-                            <td colspan="6" class="text-center text-secondary">No bookings yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            </div>
+    <!-- Today's Performance -->
+    <div class="hn-kpi-row" style="margin-bottom: 48px;">
+        <div class="hn-kpi">
+            <div class="hn-kpi-number" th:text="${todayBookings}">0</div>
+            <div class="hn-kpi-label">Today's Bookings</div>
         </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(todayRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+            <div class="hn-kpi-label">Today's Revenue</div>
+        </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(todayAdminCommission, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+            <div class="hn-kpi-label">Today's Commission</div>
+        </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number" th:text="${activeUsersToday}">0</div>
+            <div class="hn-kpi-label">Active Users Today</div>
+        </div>
+        <div class="hn-kpi">
+            <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(thisMonthRevenue, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+            <div class="hn-kpi-label">This Month Revenue</div>
+        </div>
+    </div>
 
-        <!-- Quick Access Feature Cards -->
-        <div class="section-card mb-4">
-            <div class="section-header">
-                <h5><i class="fa-solid fa-grip me-2" style="color: #ec4899;"></i>Quick Access - All Admin Features</h5>
-            </div>
-            <div class="p-4">
-                <div class="row g-4">
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <a href="/admin/users" class="text-decoration-none">
-                            <div class="feature-card">
-                                <div class="feature-icon icon-primary"><i class="fa-solid fa-users-gear"></i></div>
-                                <div class="feature-title">User Management</div>
-                                <div class="feature-desc">Manage all users, roles & permissions</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <a href="/admin/listings" class="text-decoration-none">
-                            <div class="feature-card">
-                                <div class="feature-icon icon-success"><i class="fa-solid fa-building"></i></div>
-                                <div class="feature-title">Listings</div>
-                                <div class="feature-desc">View & moderate all properties</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <a href="/admin/transactions" class="text-decoration-none">
-                            <div class="feature-card">
-                                <div class="feature-icon icon-info"><i class="fa-solid fa-receipt"></i></div>
-                                <div class="feature-title">Transactions</div>
-                                <div class="feature-desc">All bookings & payment history</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <a href="/admin/reports/sales" class="text-decoration-none">
-                            <div class="feature-card">
-                                <div class="feature-icon icon-warning"><i class="fa-solid fa-chart-line"></i></div>
-                                <div class="feature-title">Sales Report</div>
-                                <div class="feature-desc">Revenue analytics & insights</div>
-                            </div>
-                        </a>
-                    </div>
+    <!-- Top Performing Listings -->
+    <div class="hn-content-card">
+        <div class="hn-content-card-header">
+            <h4>Top Performing Listings</h4>
+        </div>
+        <div th:if="${topListings.isEmpty()}" style="text-align: center; padding: 64px 0;">
+            <p class="hn-body-lg" style="color: var(--hn-secondary);">No booking data yet.</p>
+        </div>
+        <div th:unless="${topListings.isEmpty()}" style="overflow-x: auto;">
+            <table class="hn-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Listing</th>
+                        <th>City</th>
+                        <th>Bookings</th>
+                        <th>Revenue (PKR)</th>
+                        <th>Avg Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${topListings}">
+                        <td><span style="font-weight: 600;" th:text="${item.rank}">1</span></td>
+                        <td><a th:href="@{'/listings/' + ${item.listingId}}" target="_blank" th:text="${item.title}" style="color: var(--hn-primary); text-decoration: none;">Listing</a></td>
+                        <td th:text="${item.city}">City</td>
+                        <td th:text="${item.bookingCount}">0</td>
+                        <td th:text="${#numbers.formatDecimal(item.revenue, 0, 'COMMA', 0, 'POINT')}">0</td>
+                        <td>
+                            <span th:if="${item.avgRating > 0}">
+                                &#9733; <span th:text="${#numbers.formatDecimal(item.avgRating, 1, 'POINT', 1, 'POINT')}">0.0</span>
+                            </span>
+                            <span th:if="${item.avgRating == 0}" style="color: var(--hn-secondary);">No reviews</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="hn-content-card">
+        <div class="hn-content-card-header">
+            <h4>Recent Transactions</h4>
+            <a class="hn-btn hn-btn-outline" href="/admin/transactions" style="font-size: 12px; padding: 8px 16px;">View All Transactions</a>
+        </div>
+        <div th:if="${recentBookings.isEmpty()}" style="text-align: center; padding: 64px 0;">
+            <p class="hn-body-lg" style="color: var(--hn-secondary);">No bookings yet.</p>
+        </div>
+        <div th:unless="${recentBookings.isEmpty()}" style="overflow-x: auto;">
+            <table class="hn-table">
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Guest</th>
+                        <th>Host</th>
+                        <th>Listing</th>
+                        <th>Status</th>
+                        <th>Amount (PKR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b : ${recentBookings}">
+                        <td th:text="${#temporals.format(b.createdAt, 'yyyy-MM-dd HH:mm')}">date</td>
+                        <td th:text="${b.guest.username}">guest</td>
+                        <td th:text="${b.host.username}">host</td>
+                        <td><a th:href="@{'/listings/' + ${b.listing.id}}" target="_blank" th:text="${b.listing.title}" style="color: var(--hn-primary); text-decoration: none;">listing</a></td>
+                        <td>
+                            <span th:if="${b.bookingStatus == 'PENDING'}" class="hn-badge hn-badge-pending">PENDING</span>
+                            <span th:if="${b.bookingStatus == 'CONFIRMED'}" class="hn-badge hn-badge-confirmed">CONFIRMED</span>
+                            <span th:if="${b.bookingStatus == 'CANCELLED'}" class="hn-badge hn-badge-cancelled">CANCELLED</span>
+                            <span th:if="${b.bookingStatus == 'COMPLETED'}" class="hn-badge hn-badge-completed">COMPLETED</span>
+                        </td>
+                        <td th:text="${#numbers.formatDecimal(b.totalAmount, 0, 'COMMA', 0, 'POINT')}">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Quick Access Feature Cards -->
+    <div class="hn-content-card">
+        <div class="hn-content-card-header">
+            <h4>Quick Access</h4>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+            <a href="/admin/users" style="text-decoration: none;">
+                <div class="hn-stat-card" style="text-align: center;">
+                    <div style="font-size: 28px; margin-bottom: 16px;">&#9775;</div>
+                    <h5 class="hn-body-lg" style="font-weight: 600; margin-bottom: 8px;">User Management</h5>
+                    <p class="hn-body-sm" style="color: var(--hn-secondary);">Manage all users, roles & permissions</p>
                 </div>
-            </div>
+            </a>
+            <a href="/admin/listings" style="text-decoration: none;">
+                <div class="hn-stat-card" style="text-align: center;">
+                    <div style="font-size: 28px; margin-bottom: 16px;">&#9758;</div>
+                    <h5 class="hn-body-lg" style="font-weight: 600; margin-bottom: 8px;">Listings</h5>
+                    <p class="hn-body-sm" style="color: var(--hn-secondary);">View & moderate all properties</p>
+                </div>
+            </a>
+            <a href="/admin/transactions" style="text-decoration: none;">
+                <div class="hn-stat-card" style="text-align: center;">
+                    <div style="font-size: 28px; margin-bottom: 16px;">&#9734;</div>
+                    <h5 class="hn-body-lg" style="font-weight: 600; margin-bottom: 8px;">Transactions</h5>
+                    <p class="hn-body-sm" style="color: var(--hn-secondary);">All bookings & payment history</p>
+                </div>
+            </a>
+            <a href="/admin/reports/sales" style="text-decoration: none;">
+                <div class="hn-stat-card" style="text-align: center;">
+                    <div style="font-size: 28px; margin-bottom: 16px;">&#9733;</div>
+                    <h5 class="hn-body-lg" style="font-weight: 600; margin-bottom: 8px;">Sales Report</h5>
+                    <p class="hn-body-sm" style="color: var(--hn-secondary);">Revenue analytics & insights</p>
+                </div>
+            </a>
         </div>
-
     </div>
 </div>
 

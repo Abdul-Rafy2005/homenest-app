@@ -4,32 +4,51 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <footer th:fragment="footer" class="bg-light border-top mt-5 py-4">
-        <div class="container-lg">
-            <div class="row">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h6 class="fw-bold">HomeNest</h6>
-                    <p class="text-muted small">Discover amazing places to stay around the world.</p>
+    <footer th:fragment="footer" class="hn-footer">
+        <div class="hn-container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap;">
+                <div style="max-width: 320px;">
+                    <span class="hn-footer-brand">HomeNest</span>
+                    <p class="hn-footer-desc">Curating the world's most intentional living spaces for the modern explorer.</p>
                 </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h6 class="fw-bold">Support</h6>
-                    <ul class="list-unstyled small">
-                        <li><a href="/about" class="text-muted text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">Contact</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">Safety</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="fw-bold">Legal</h6>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-muted text-decoration-none">Terms of Service</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
-                    </ul>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px;">
+                    <div>
+                        <div class="hn-footer-heading">Discover</div>
+                        <ul class="hn-footer-links">
+                            <li><a href="/">Destinations</a></li>
+                            <li><a href="/about">About</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="hn-footer-heading">Editorial</div>
+                        <ul class="hn-footer-links">
+                            <li><a href="/about">Journal</a></li>
+                            <li><a href="/about">Contributors</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="hn-footer-heading">Support</div>
+                        <ul class="hn-footer-links">
+                            <li><a href="/about">Help Center</a></li>
+                            <li><a href="/about">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="hn-footer-heading">Social</div>
+                        <ul class="hn-footer-links">
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Pinterest</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <div class="text-center text-muted small">
-                <p>&copy; 2025 HomeNest. All rights reserved.</p>
+            <div class="hn-footer-bottom">
+                <span class="hn-footer-copy">&copy; 2025 HomeNest Pakistan</span>
+                <div class="hn-footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>

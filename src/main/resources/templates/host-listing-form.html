@@ -3,39 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Form - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --primary: #6366f1; --primary-dark: #4f46e5; }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f9fafb; }
-        .page-header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 3rem 0; margin-bottom: 2rem; }
-        .content-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); max-width: 800px; margin: 0 auto; }
-    </style>
+    <title th:text="${isEdit ? 'Edit Listing' : 'Create Listing'} + ' - HomeNest'">Listing Form - HomeNest</title>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <div class="page-header"><div class="container-lg"><h1 class="mb-0"><span th:if="${isEdit}">Edit Listing</span><span th:unless="${isEdit}">Create New Listing</span></h1><p class="mb-0 opacity-90 mt-2">Fill in the details about your property</p></div></div>
-    <div class="container-lg mb-5"><div class="content-card">
-        <form th:if="${isEdit}" th:object="${listing}" method="post" th:action="@{/host/listings/{id}(id=${listing.id})}" enctype="multipart/form-data">
-            <div class="mb-4"><label for="title" class="form-label">Listing Title *</label><input type="text" class="form-control" id="title" name="title" th:field="*{title}" required></div>
-            <div class="mb-4"><label for="mainImage" class="form-label">Property Image</label><div th:if="${listing.imageUrl}" class="mb-3"><img th:src="${listing.imageUrl}" alt="Current" class="img-fluid rounded" style="max-height: 300px;"><p class="text-muted small mt-2">Upload new to replace</p></div><input type="file" class="form-control" id="mainImage" name="mainImage" accept="image/*"></div>
-            <div class="mb-4"><label for="description" class="form-label">Description</label><textarea class="form-control" id="description" name="description" th:field="*{description}" rows="5"></textarea></div>
-            <div class="row mb-4"><div class="col-md-6"><label for="city" class="form-label">City *</label><input type="text" class="form-control" id="city" name="city" th:field="*{city}" required></div><div class="col-md-6"><label for="address" class="form-label">Address</label><input type="text" class="form-control" id="address" name="address" th:field="*{address}"></div></div>
-            <div class="row mb-4"><div class="col-md-4"><label for="propertyType" class="form-label">Property Type</label><select class="form-select" id="propertyType" name="propertyType" th:field="*{propertyType}"><option value="">Select</option><option value="APARTMENT">Apartment</option><option value="HOUSE">House</option><option value="VILLA">Villa</option><option value="CONDO">Condo</option><option value="STUDIO">Studio</option><option value="HOSTEL">Hostel</option><option value="HOTEL">Hotel</option></select></div><div class="col-md-4"><label for="capacity" class="form-label">Capacity *</label><input type="number" class="form-control" id="capacity" name="capacity" th:field="*{capacity}" min="1" required></div><div class="col-md-4"><label for="pricePerNight" class="form-label">Price/Night *</label><input type="number" class="form-control" id="pricePerNight" name="pricePerNight" th:field="*{pricePerNight}" step="0.01" min="0" required></div></div>
-            <div class="mb-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="isPublished" name="isPublished" th:field="*{isPublished}"><label class="form-check-label" for="isPublished">Publish this listing</label></div></div>
-            <div class="d-flex gap-3 pt-3 border-top"><button type="submit" class="btn btn-primary">Update</button><a href="/host/listings" class="btn btn-secondary">Cancel</a></div>
-        </form>
-        <form th:unless="${isEdit}" th:object="${listing}" method="post" th:action="@{/host/listings}" enctype="multipart/form-data">
-            <div class="mb-4"><label for="title" class="form-label">Listing Title *</label><input type="text" class="form-control" id="title" name="title" th:field="*{title}" required></div>
-            <div class="mb-4"><label for="mainImage" class="form-label">Property Image</label><input type="file" class="form-control" id="mainImage" name="mainImage" accept="image/*"></div>
-            <div class="mb-4"><label for="description" class="form-label">Description</label><textarea class="form-control" id="description" name="description" th:field="*{description}" rows="5"></textarea></div>
-            <div class="row mb-4"><div class="col-md-6"><label for="city" class="form-label">City *</label><input type="text" class="form-control" id="city" name="city" th:field="*{city}" required></div><div class="col-md-6"><label for="address" class="form-label">Address</label><input type="text" class="form-control" id="address" name="address" th:field="*{address}"></div></div>
-            <div class="row mb-4"><div class="col-md-4"><label for="propertyType" class="form-label">Property Type</label><select class="form-select" id="propertyType" name="propertyType" th:field="*{propertyType}"><option value="">Select</option><option value="APARTMENT">Apartment</option><option value="HOUSE">House</option><option value="VILLA">Villa</option><option value="CONDO">Condo</option><option value="STUDIO">Studio</option><option value="HOSTEL">Hostel</option><option value="HOTEL">Hotel</option></select></div><div class="col-md-4"><label for="capacity" class="form-label">Capacity *</label><input type="number" class="form-control" id="capacity" name="capacity" th:field="*{capacity}" min="1" required></div><div class="col-md-4"><label for="pricePerNight" class="form-label">Price/Night *</label><input type="number" class="form-control" id="pricePerNight" name="pricePerNight" th:field="*{pricePerNight}" step="0.01" min="0" required></div></div>
-            <div class="mb-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="isPublished" name="isPublished" th:field="*{isPublished}"><label class="form-check-label" for="isPublished">Publish this listing</label></div></div>
-            <div class="d-flex gap-3 pt-3 border-top"><button type="submit" class="btn btn-primary">Create</button><a href="/host/listings" class="btn btn-secondary">Cancel</a></div>
-        </form>
-    </div></div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <div class="hn-container" style="padding-top: 128px; padding-bottom: 128px;">
+        <div style="max-width: 720px; margin: 0 auto;">
+            <h1 class="hn-headline-lg" style="margin-bottom: 8px;">
+                <span th:if="${isEdit}">Edit Listing</span>
+                <span th:unless="${isEdit}">Create New Listing</span>
+            </h1>
+            <p class="hn-body-lg" style="color: var(--hn-secondary); margin-bottom: 48px;">Fill in the details about your property</p>
+
+            <div style="border: 1px solid rgba(30, 27, 22, 0.1); padding: 48px;">
+                <form th:if="${isEdit}" th:object="${listing}" method="post" th:action="@{/host/listings/{id}(id=${listing.id})}" enctype="multipart/form-data">
+                    <div style="margin-bottom: 32px;">
+                        <label for="title" class="hn-label-sm">Listing Title *</label>
+                        <input type="text" class="hn-input" id="title" name="title" th:field="*{title}" required>
+                    </div>
+                    <div style="margin-bottom: 32px;">
+                        <label for="mainImage" class="hn-label-sm">Property Image</label>
+                        <div th:if="${listing.imageUrl}" style="margin-bottom: 16px;">
+                            <img th:src="${listing.imageUrl}" alt="Current" style="max-height: 300px; width: 100%; object-fit: cover;">
+                            <p class="hn-body-sm" style="color: var(--hn-secondary); margin-top: 8px;">Upload new to replace</p>
+                        </div>
+                        <input type="file" class="hn-input" id="mainImage" name="mainImage" accept="image/*">
+                    </div>
+                    <div style="margin-bottom: 32px;">
+                        <label for="description" class="hn-label-sm">Description</label>
+                        <textarea class="hn-input" id="description" name="description" th:field="*{description}" rows="5"></textarea>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                        <div>
+                            <label for="city" class="hn-label-sm">City *</label>
+                            <input type="text" class="hn-input" id="city" name="city" th:field="*{city}" required>
+                        </div>
+                        <div>
+                            <label for="address" class="hn-label-sm">Address</label>
+                            <input type="text" class="hn-input" id="address" name="address" th:field="*{address}">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                        <div>
+                            <label for="propertyType" class="hn-label-sm">Property Type</label>
+                            <select class="hn-input" id="propertyType" name="propertyType" th:field="*{propertyType}">
+                                <option value="">Select</option>
+                                <option value="APARTMENT">Apartment</option>
+                                <option value="HOUSE">House</option>
+                                <option value="VILLA">Villa</option>
+                                <option value="CONDO">Condo</option>
+                                <option value="STUDIO">Studio</option>
+                                <option value="HOSTEL">Hostel</option>
+                                <option value="HOTEL">Hotel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="capacity" class="hn-label-sm">Capacity *</label>
+                            <input type="number" class="hn-input" id="capacity" name="capacity" th:field="*{capacity}" min="1" required>
+                        </div>
+                        <div>
+                            <label for="pricePerNight" class="hn-label-sm">Price/Night (PKR) *</label>
+                            <input type="number" class="hn-input" id="pricePerNight" name="pricePerNight" th:field="*{pricePerNight}" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 40px;">
+                        <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                            <input type="checkbox" id="isPublished" name="isPublished" th:field="*{isPublished}" style="width: 20px; height: 20px; accent-color: var(--hn-primary);">
+                            <span class="hn-body-md">Publish this listing</span>
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(30, 27, 22, 0.1);">
+                        <button type="submit" class="hn-btn hn-btn-primary">Update Listing</button>
+                        <a href="/host/listings" class="hn-btn hn-btn-outline">Cancel</a>
+                    </div>
+                </form>
+
+                <form th:unless="${isEdit}" th:object="${listing}" method="post" th:action="@{/host/listings}" enctype="multipart/form-data">
+                    <div style="margin-bottom: 32px;">
+                        <label for="title" class="hn-label-sm">Listing Title *</label>
+                        <input type="text" class="hn-input" id="title" name="title" th:field="*{title}" required>
+                    </div>
+                    <div style="margin-bottom: 32px;">
+                        <label for="mainImage" class="hn-label-sm">Property Image</label>
+                        <input type="file" class="hn-input" id="mainImage" name="mainImage" accept="image/*">
+                    </div>
+                    <div style="margin-bottom: 32px;">
+                        <label for="description" class="hn-label-sm">Description</label>
+                        <textarea class="hn-input" id="description" name="description" th:field="*{description}" rows="5"></textarea>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                        <div>
+                            <label for="city" class="hn-label-sm">City *</label>
+                            <input type="text" class="hn-input" id="city" name="city" th:field="*{city}" required>
+                        </div>
+                        <div>
+                            <label for="address" class="hn-label-sm">Address</label>
+                            <input type="text" class="hn-input" id="address" name="address" th:field="*{address}">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+                        <div>
+                            <label for="propertyType" class="hn-label-sm">Property Type</label>
+                            <select class="hn-input" id="propertyType" name="propertyType" th:field="*{propertyType}">
+                                <option value="">Select</option>
+                                <option value="APARTMENT">Apartment</option>
+                                <option value="HOUSE">House</option>
+                                <option value="VILLA">Villa</option>
+                                <option value="CONDO">Condo</option>
+                                <option value="STUDIO">Studio</option>
+                                <option value="HOSTEL">Hostel</option>
+                                <option value="HOTEL">Hotel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="capacity" class="hn-label-sm">Capacity *</label>
+                            <input type="number" class="hn-input" id="capacity" name="capacity" th:field="*{capacity}" min="1" required>
+                        </div>
+                        <div>
+                            <label for="pricePerNight" class="hn-label-sm">Price/Night (PKR) *</label>
+                            <input type="number" class="hn-input" id="pricePerNight" name="pricePerNight" th:field="*{pricePerNight}" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 40px;">
+                        <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                            <input type="checkbox" id="isPublished" name="isPublished" th:field="*{isPublished}" style="width: 20px; height: 20px; accent-color: var(--hn-primary);">
+                            <span class="hn-body-md">Publish this listing</span>
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(30, 27, 22, 0.1);">
+                        <button type="submit" class="hn-btn hn-btn-primary">Create Listing</button>
+                        <a href="/host/listings" class="hn-btn hn-btn-outline">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

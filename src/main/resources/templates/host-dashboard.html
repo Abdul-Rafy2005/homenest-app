@@ -4,241 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Dashboard - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-        }
-        .dashboard-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
-            transform: translateY(-4px);
-        }
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .content-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-        .listing-card {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        .listing-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .badge-published {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-        .badge-draft {
-            background: rgba(107, 114, 128, 0.1);
-            color: var(--text-light);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-        .btn-action {
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-        .table-custom {
-            margin-top: 1rem;
-        }
-        .table-custom th {
-            background: var(--bg);
-            color: var(--text);
-            font-weight: 700;
-            border: none;
-            padding: 12px;
-        }
-        .table-custom td {
-            padding: 12px;
-            vertical-align: middle;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="dashboard-header">
-        <div class="container-lg">
-            <h1 class="mb-2"><i class="fa-solid fa-house-user me-2"></i>Host Dashboard</h1>
-            <p class="mb-0 opacity-90">Manage your properties, bookings, and earnings</p>
+    <div class="hn-dashboard-header" style="padding: 80px 0;">
+        <div class="hn-container">
+            <span class="hn-label-sm" style="color: var(--hn-inverse-primary); letter-spacing: 0.3em; display: block; margin-bottom: 24px;">Dashboard</span>
+            <h1 class="hn-headline-xl">Host Dashboard</h1>
+            <p class="hn-body-lg" style="opacity: 0.8;">Manage your properties, bookings, and earnings</p>
         </div>
     </div>
 
-    <div class="container-lg">
-        <!-- Alert Messages -->
-        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-check-circle me-2"></i><span th:text="${success}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fa-solid fa-exclamation-circle me-2"></i><span th:text="${error}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+    <div class="hn-container" style="padding: 48px 0;">
+        <div th:if="${success}" class="hn-alert hn-alert-success" role="alert" th:text="${success}"></div>
+        <div th:if="${error}" class="hn-alert hn-alert-danger" role="alert" th:text="${error}"></div>
 
         <!-- KPI Cards -->
-        <div class="row g-4 mb-4">
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">
-                        <i class="fa-solid fa-hotel"></i>
-                    </div>
-                    <h3 class="mb-0" th:text="${totalListings}">0</h3>
-                    <p class="text-muted mb-0">Total Listings</p>
-                </div>
+        <div class="hn-kpi-row" style="margin-bottom: 48px;">
+            <div class="hn-kpi">
+                <div class="hn-kpi-number" th:text="${totalListings}">0</div>
+                <div class="hn-kpi-label">Total Listings</div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                    <h3 class="mb-0" th:text="${activeListings}">0</h3>
-                    <p class="text-muted mb-0">Active Listings</p>
-                </div>
+            <div class="hn-kpi">
+                <div class="hn-kpi-number" th:text="${activeListings}">0</div>
+                <div class="hn-kpi-label">Active Listings</div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(6, 182, 212, 0.1); color: var(--info);">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-                    <h3 class="mb-0" th:text="${totalBookings}">0</h3>
-                    <p class="text-muted mb-0">Total Bookings</p>
-                </div>
+            <div class="hn-kpi">
+                <div class="hn-kpi-number" th:text="${totalBookings}">0</div>
+                <div class="hn-kpi-label">Total Bookings</div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
-                        <i class="fa-solid fa-dollar-sign"></i>
-                    </div>
-                    <h3 class="mb-0">$<span th:text="${#numbers.formatDecimal(totalEarnings, 1, 2)}">0.00</span></h3>
-                    <p class="text-muted mb-0">Your Net Earnings</p>
-                    <small class="text-muted d-block mt-2">After 5% admin commission</small>
-                </div>
+            <div class="hn-kpi">
+                <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(totalEarnings, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+                <div class="hn-kpi-label">Net Earnings</div>
+                <div class="hn-body-sm" style="color: var(--hn-secondary);">After 5% admin commission</div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(237, 100, 166, 0.1); color: #ec4899;">
-                        <i class="fa-solid fa-hand-holding-heart"></i>
-                    </div>
-                    <h3 class="mb-0">$<span th:text="${#numbers.formatDecimal(totalCommissionPaid, 1, 2)}">0.00</span></h3>
-                    <p class="text-muted mb-0">Admin Commission Paid</p>
-                    <small class="text-muted d-block mt-2">5% of gross earnings</small>
-                </div>
+            <div class="hn-kpi">
+                <div class="hn-kpi-number">PKR <span th:text="${#numbers.formatDecimal(totalCommissionPaid, 0, 'COMMA', 0, 'POINT')}">0</span></div>
+                <div class="hn-kpi-label">Commission Paid</div>
+                <div class="hn-body-sm" style="color: var(--hn-secondary);">5% of gross earnings</div>
             </div>
         </div>
 
         <!-- Quick Actions -->
-        <div class="content-card">
-            <h5 class="mb-3"><i class="fa-solid fa-bolt me-2"></i>Quick Actions</h5>
-            <div class="d-flex gap-3 flex-wrap">
-                <a href="/host/listings/new" class="btn btn-primary btn-action">
-                    <i class="fa-solid fa-plus me-2"></i>Add New Listing
-                </a>
-                <a href="/host/listings" class="btn btn-outline-primary btn-action">
-                    <i class="fa-solid fa-hotel me-2"></i>Manage Properties
-                </a>
-                <a href="/host/bookings" class="btn btn-outline-info btn-action">
-                    <i class="fa-solid fa-calendar me-2"></i>View Bookings
-                </a>
-                <a href="/host/discounts" class="btn btn-outline-danger btn-action">
-                    <i class="fa-solid fa-tags me-2"></i>My Discounts
-                </a>
-                <a href="/" class="btn btn-outline-secondary btn-action">
-                    <i class="fa-solid fa-compass me-2"></i>Browse Stays
-                </a>
+        <div class="hn-content-card">
+            <div class="hn-content-card-header">
+                <h4>Quick Actions</h4>
+            </div>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <a href="/host/listings/new" class="hn-btn hn-btn-primary">Add New Listing</a>
+                <a href="/host/listings" class="hn-btn hn-btn-outline">Manage Properties</a>
+                <a href="/host/bookings" class="hn-btn hn-btn-outline">View Bookings</a>
+                <a href="/host/reviews" class="hn-btn hn-btn-outline">My Reviews</a>
+                <a href="/host/discounts" class="hn-btn hn-btn-outline">My Discounts</a>
             </div>
         </div>
 
         <!-- My Listings Section -->
-        <div class="content-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0"><i class="fa-solid fa-building me-2"></i>My Listings</h5>
-                <a href="/host/listings" class="btn btn-sm btn-outline-primary">View All</a>
+        <div class="hn-content-card">
+            <div class="hn-content-card-header">
+                <h4>My Listings</h4>
+                <a href="/host/listings" class="hn-btn hn-btn-outline" style="font-size: 12px; padding: 8px 16px;">View All</a>
             </div>
-            <div th:if="${topListings.isEmpty()}">
-                <p class="text-muted text-center py-4">
-                    <i class="fa-solid fa-inbox fa-3x mb-3 d-block opacity-25"></i>
-                    You haven't created any listings yet. Start by adding your first property!
-                </p>
+            <div th:if="${topListings.isEmpty()}" style="text-align: center; padding: 64px 0;">
+                <p class="hn-body-lg" style="color: var(--hn-secondary);">You haven't created any listings yet. Start by adding your first property!</p>
             </div>
             <div th:if="${!topListings.isEmpty()}">
-                <div th:each="listing : ${topListings}" class="listing-card">
-                    <div class="d-flex justify-content-between align-items-start">
+                <div th:each="listing : ${topListings}" style="padding: 20px 0; border-bottom: 1px solid rgba(30, 27, 22, 0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
                         <div>
-                            <h6 class="mb-1" th:text="${listing.title}">Listing Title</h6>
-                            <p class="text-muted mb-2">
-                                <i class="fa-solid fa-location-dot me-1"></i><span th:text="${listing.city}">City</span>
-                                <span class="mx-2">•</span>
-                                <i class="fa-solid fa-users me-1"></i><span th:text="${listing.capacity}">2</span> guests
+                            <h5 class="hn-body-lg" style="font-weight: 600;" th:text="${listing.title}">Listing Title</h5>
+                            <p class="hn-body-sm" style="color: var(--hn-secondary);">
+                                <span th:text="${listing.city}">City</span> &middot; <span th:text="${listing.capacity}">2</span> guests
                             </p>
                         </div>
-                        <div class="text-end">
-                            <div class="fw-bold text-primary mb-1">
-                                $<span th:text="${#numbers.formatDecimal(listing.pricePerNight, 1, 2)}">0</span>/night
+                        <div style="text-align: right;">
+                            <div class="hn-body-md" style="font-weight: 600; color: var(--hn-primary);">
+                                PKR <span th:text="${#numbers.formatDecimal(listing.pricePerNight, 0, 'COMMA', 0, 'POINT')}">0</span>/night
                             </div>
-                            <span th:if="${listing.isPublished}" class="badge-published">Published</span>
-                            <span th:if="${!listing.isPublished}" class="badge-draft">Draft</span>
+                            <span th:if="${listing.isPublished}" class="hn-badge hn-badge-confirmed">Published</span>
+                            <span th:if="${!listing.isPublished}" class="hn-badge hn-badge-cancelled">Draft</span>
                         </div>
                     </div>
                 </div>
@@ -246,51 +92,48 @@
         </div>
 
         <!-- Recent Bookings Section -->
-        <div class="content-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0"><i class="fa-solid fa-receipt me-2"></i>Recent Bookings</h5>
-                <a href="/host/bookings" class="btn btn-sm btn-outline-primary">View All</a>
+        <div class="hn-content-card">
+            <div class="hn-content-card-header">
+                <h4>Recent Bookings</h4>
+                <a href="/host/bookings" class="hn-btn hn-btn-outline" style="font-size: 12px; padding: 8px 16px;">View All</a>
             </div>
-            <div th:if="${recentBookings.isEmpty()}">
-                <p class="text-muted text-center py-4">
-                    <i class="fa-solid fa-calendar-xmark fa-3x mb-3 d-block opacity-25"></i>
-                    No bookings yet. Guests will book your properties once they're published!
-                </p>
+            <div th:if="${recentBookings.isEmpty()}" style="text-align: center; padding: 64px 0;">
+                <p class="hn-body-lg" style="color: var(--hn-secondary);">No bookings yet. Guests will book your properties once they're published!</p>
             </div>
-            <div th:if="${!recentBookings.isEmpty()}">
-                <div class="table-responsive">
-                    <table class="table table-custom table-hover">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Guest</th>
-                                <th>Listing</th>
-                                <th>Check-in</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="booking : ${recentBookings}">
-                                <td th:text="${#temporals.format(booking.createdAt, 'MMM dd, yyyy')}">Date</td>
-                                <td th:text="${booking.guest.username}">Guest</td>
-                                <td th:text="${booking.listing.title}">Listing</td>
-                                <td th:text="${#temporals.format(booking.startDate, 'MMM dd')}">Check-in</td>
-                                <td class="fw-bold">$<span th:text="${#numbers.formatDecimal(booking.totalAmount, 1, 2)}">0</span></td>
-                                <td>
-                                    <span th:if="${booking.bookingStatus == 'CONFIRMED'}" class="badge bg-success">Confirmed</span>
-                                    <span th:if="${booking.bookingStatus == 'PENDING'}" class="badge bg-warning">Pending</span>
-                                    <span th:if="${booking.bookingStatus == 'COMPLETED'}" class="badge bg-info">Completed</span>
-                                    <span th:if="${booking.bookingStatus == 'CANCELLED'}" class="badge bg-secondary">Cancelled</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div th:if="${!recentBookings.isEmpty()}" style="overflow-x: auto;">
+                <table class="hn-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Guest</th>
+                            <th>Listing</th>
+                            <th>Check-in</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="booking : ${recentBookings}">
+                            <td th:text="${#temporals.format(booking.createdAt, 'MMM dd, yyyy')}">Date</td>
+                            <td th:text="${booking.guest.username}">Guest</td>
+                            <td th:text="${booking.listing.title}">Listing</td>
+                            <td th:text="${#temporals.format(booking.startDate, 'MMM dd')}">Check-in</td>
+                            <td style="font-weight: 600;">PKR <span th:text="${#numbers.formatDecimal(booking.totalAmount, 0, 'COMMA', 0, 'POINT')}">0</span></td>
+                            <td>
+                                <span th:if="${booking.bookingStatus == 'CONFIRMED'}" class="hn-badge hn-badge-confirmed">Confirmed</span>
+                                <span th:if="${booking.bookingStatus == 'PENDING'}" class="hn-badge hn-badge-pending">Pending</span>
+                                <span th:if="${booking.bookingStatus == 'COMPLETED'}" class="hn-badge hn-badge-completed">Completed</span>
+                                <span th:if="${booking.bookingStatus == 'CANCELLED'}" class="hn-badge hn-badge-cancelled">Cancelled</span>
+                                <span th:if="${booking.bookingStatus == 'REJECTED'}" class="hn-badge hn-badge-cancelled">Rejected</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
+    <div th:insert="~{fragments/footer :: footer}"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,167 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Confirmed - HomeNest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-        .navbar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.4rem;
-            color: white !important;
-        }
-        .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: white !important;
-        }
-        .card {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        }
-        .card-header {
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%) !important;
-            color: white !important;
-            border-radius: 16px 16px 0 0 !important;
-            padding: 24px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">🏠 HomeNest</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link active" href="/bookings/guest/bookings">My Bookings</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('HOST')">
-                        <a class="nav-link" href="/listings/host/listings">Host Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="/bookings/guest/bookings">My Bookings</a></li>
-                            <li sec:authorize="hasRole('HOST')"><a class="dropdown-item" href="/listings/host/listings">Host Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3">
-                                    <button type="submit" class="btn btn-link p-0">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:insert="fragments/navbar :: navbar"></div>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card border-success">
-                    <div class="card-header bg-success text-white text-center">
-                        <h3>✓ Booking Confirmed!</h3>
+    <div class="hn-container" style="padding-top: 64px; padding-bottom: 128px;">
+        <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+            <div style="border: 1px solid rgba(30, 27, 22, 0.1);">
+                <div style="background: var(--hn-on-surface); color: var(--hn-surface); padding: 32px;">
+                    <h2 class="hn-headline-md">Booking Confirmed</h2>
+                </div>
+                <div style="padding: 64px 40px;">
+                    <div style="margin-bottom: 32px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="var(--hn-primary)" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                        </svg>
                     </div>
-                    <div class="card-body text-center">
-                        <div class="mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-check-circle text-success" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                            </svg>
-                        </div>
-                        
-                        <h4>Your booking has been successfully created!</h4>
-                        <p class="lead text-muted">Booking Reference: #<span th:text="${booking.id}">12345</span></p>
-                        
-                        <div class="alert alert-info mt-4" role="alert">
-                            <h5>Booking Details</h5>
-                            <ul class="list-unstyled mb-0">
-                                <li><strong>Property:</strong> <span th:text="${booking.listing.title}">Property Name</span></li>
-                                <li><strong>Check-in:</strong> <span th:text="${#temporals.format(booking.startDate, 'MMMM d, yyyy')}">Date</span></li>
-                                <li><strong>Check-out:</strong> <span th:text="${#temporals.format(booking.endDate, 'MMMM d, yyyy')}">Date</span></li>
-                                <li><strong>Total Amount:</strong> $<span th:text="${booking.totalAmount}">0</span></li>
-                                <li><strong>Status:</strong> <span class="badge bg-warning" th:text="${booking.bookingStatus}">PENDING</span></li>
-                            </ul>
-                        </div>
 
-                        <p class="text-muted">
-                            A confirmation email has been sent to your registered email address. 
-                            The host will review your booking and confirm shortly.
-                        </p>
+                    <h3 class="hn-headline-md" style="margin-bottom: 16px;">Your booking has been successfully created!</h3>
+                    <p class="hn-body-lg" style="color: var(--hn-secondary); margin-bottom: 40px;">Booking Reference: #<span th:text="${booking.id}">12345</span></p>
 
-                        <div class="mt-4">
-                            <a href="/" class="btn btn-primary btn-lg me-2">Browse More Listings</a>
-                            <a th:href="@{/listings/{id}(id=${booking.listing.id})}" class="btn btn-outline-primary btn-lg">View Property</a>
-                        </div>
+                    <div style="border: 1px solid var(--hn-primary); padding: 32px; text-align: left; margin-bottom: 40px;">
+                        <h4 class="hn-label-sm" style="color: var(--hn-primary); margin-bottom: 16px;">Booking Details</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li class="hn-body-md" style="padding: 8px 0; border-bottom: 1px solid rgba(30, 27, 22, 0.1);"><strong>Property:</strong> <span th:text="${booking.listing.title}">Property Name</span></li>
+                            <li class="hn-body-md" style="padding: 8px 0; border-bottom: 1px solid rgba(30, 27, 22, 0.1);"><strong>Check-in:</strong> <span th:text="${#temporals.format(booking.startDate, 'MMMM d, yyyy')}">Date</span></li>
+                            <li class="hn-body-md" style="padding: 8px 0; border-bottom: 1px solid rgba(30, 27, 22, 0.1);"><strong>Check-out:</strong> <span th:text="${#temporals.format(booking.endDate, 'MMMM d, yyyy')}">Date</span></li>
+                            <li class="hn-body-md" style="padding: 8px 0; border-bottom: 1px solid rgba(30, 27, 22, 0.1);"><strong>Total Amount:</strong> PKR <span th:text="${booking.totalAmount}">0</span></li>
+                            <li class="hn-body-md" style="padding: 8px 0;"><strong>Status:</strong> <span class="hn-badge hn-badge-pending" th:text="${booking.bookingStatus}">PENDING</span></li>
+                        </ul>
+                    </div>
+
+                    <p class="hn-body-md" style="color: var(--hn-secondary); margin-bottom: 40px;">
+                        A confirmation email has been sent to your registered email address.
+                        The host will review your booking and confirm shortly.
+                    </p>
+
+                    <div style="display: flex; justify-content: center; gap: 16px;">
+                        <a href="/" class="hn-btn hn-btn-primary">Browse More Listings</a>
+                        <a th:href="@{/listings/{id}(id=${booking.listing.id})}" class="hn-btn hn-btn-outline">View Property</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-light text-center text-muted py-4 mt-5">
-        <div class="container">
-            <p>&copy; 2025 HomeNest. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

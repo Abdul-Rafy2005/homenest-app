@@ -2,113 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-        <div class="container-lg">
-            <a class="navbar-brand fw-bold" href="/" style="font-size: 1.5rem; color: #ff385c;">
-                🏠 HomeNest
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Non-Admin Users Navigation -->
-                    <li class="nav-item" sec:authorize="!hasRole('ADMIN') and !hasRole('HOST')">
-                        <a class="nav-link" href="/" style="color: #333;">Home</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated() and !hasRole('ADMIN') and !hasRole('HOST')">
-                        <a class="nav-link" href="/bookings/guest/bookings" style="color: #333;">My Bookings</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!hasRole('ADMIN')">
-                        <a class="nav-link" href="/about" style="color: #333;">About</a>
-                    </li>
-                    
-                    <!-- Host Dropdown Menu -->
-                    <li class="nav-item dropdown" sec:authorize="hasRole('HOST')">
-                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="hostMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #6366f1;">
-                            <i class="fa-solid fa-house-user"></i> Host Panel
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hostMenu">
-                            <li><a class="dropdown-item" href="/host/dashboard"><i class="fa-solid fa-gauge-high me-2" style="color: #6366f1;"></i>Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/host/listings"><i class="fa-solid fa-building me-2" style="color: #10b981;"></i>My Properties</a></li>
-                            <li><a class="dropdown-item" href="/host/bookings"><i class="fa-solid fa-inbox me-2" style="color: #06b6d4;"></i>Booking Requests</a></li>
-                            <li><a class="dropdown-item" href="/host/discounts"><i class="fa-solid fa-tags me-2" style="color: #ec4899;"></i>My Discounts</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/"><i class="fa-solid fa-compass me-2" style="color: #f59e0b;"></i>Browse Stays</a></li>
-                            <li><a class="dropdown-item" href="/bookings/guest/bookings"><i class="fa-solid fa-receipt me-2" style="color: #f59e0b;"></i>My Bookings</a></li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Admin Single Dropdown -->
-                    <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #6366f1;">
-                            <i class="fa-solid fa-shield-halved"></i> Admin Panel
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMenu">
-                            <li><a class="dropdown-item" href="/admin/dashboard"><i class="fa-solid fa-gauge-high me-2" style="color: #6366f1;"></i>Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/admin/users"><i class="fa-solid fa-users me-2" style="color: #6366f1;"></i>User Management</a></li>
-                            <li><a class="dropdown-item" href="/admin/listings"><i class="fa-solid fa-hotel me-2" style="color: #10b981;"></i>Listings</a></li>
-                            <li><a class="dropdown-item" href="/admin/transactions"><i class="fa-solid fa-receipt me-2" style="color: #06b6d4;"></i>Transactions</a></li>
-                            <li><a class="dropdown-item" href="/admin/reports/sales"><i class="fa-solid fa-chart-line me-2" style="color: #f59e0b;"></i>Sales Report</a></li>
-                            <li><a class="dropdown-item" href="/admin/discounts"><i class="fa-solid fa-tags me-2" style="color: #ec4899;"></i>Discounts</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3">
-                                    <button type="submit" class="btn btn-link p-0 text-danger w-100 text-start">
-                                        <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Login/Register for non-authenticated users -->
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link btn btn-outline-danger btn-sm me-2" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link btn btn-danger btn-sm" href="/register">Sign Up</a>
-                    </li>
-                    
-                    <!-- Non-Admin/Non-Host User Menu -->
-                    <li class="nav-item dropdown" sec:authorize="isAuthenticated() and !hasRole('ADMIN') and !hasRole('HOST')">
-                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #333;">
-                            <i class="fa-solid fa-circle-user me-1" style="color: #6366f1; font-size: 1.2rem;"></i><span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="/bookings/guest/bookings"><i class="fa-solid fa-receipt me-2" style="color: #06b6d4;"></i>My Bookings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3 py-2 w-100">
-                                    <button type="submit" class="btn btn-danger w-100" style="border-radius: 8px; font-weight: 600;">
-                                        <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Host User Dropdown (for logout) -->
-                    <li class="nav-item dropdown" sec:authorize="hasRole('HOST')">
-                        <a class="nav-link dropdown-toggle" href="#" id="hostUserMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #333;">
-                            <i class="fa-solid fa-circle-user me-1" style="color: #6366f1;"></i><span sec:authentication="name">User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hostUserMenu">
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="px-3 py-2 w-100">
-                                    <button type="submit" class="btn btn-danger w-100" style="border-radius: 8px; font-weight: 600;">
-                                        <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+    <nav th:fragment="navbar" class="hn-nav">
+        <div class="hn-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 48px;">
+                <a class="hn-nav-brand" href="/" style="display: flex; align-items: center; gap: 12px;">
+                    <img src="/images/homenest_logo.png" alt="HomeNest" style="height: 32px; width: auto; object-fit: contain;">
+                    <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--hn-on-surface);">HomeNest</span>
+                </a>
+                <div style="display: flex; gap: 32px; align-items: center;">
+                    <a class="hn-nav-link" href="/">Destinations</a>
+                    <a class="hn-nav-link" href="/about">About</a>
+                    <a class="hn-nav-link" href="/bookings/guest/bookings" sec:authorize="isAuthenticated() and !hasRole('ADMIN') and !hasRole('HOST')">My Bookings</a>
+                    <a class="hn-nav-link" href="/host/dashboard" sec:authorize="hasRole('HOST')" style="color: var(--hn-primary);">Host Panel</a>
+                    <a class="hn-nav-link" href="/admin/dashboard" sec:authorize="hasRole('ADMIN')" style="color: var(--hn-primary);">Admin Panel</a>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a class="hn-btn hn-btn-outline" href="/login" sec:authorize="!isAuthenticated()" style="font-size: 12px; padding: 8px 24px;">Sign In</a>
+                <a class="hn-btn hn-btn-primary" href="/register" sec:authorize="!isAuthenticated()" style="font-size: 12px; padding: 8px 24px;">Register</a>
+
+                <div sec:authorize="isAuthenticated() and !hasRole('ADMIN') and !hasRole('HOST')" style="display: flex; align-items: center; gap: 16px;">
+                    <span class="hn-body-sm" style="color: var(--hn-secondary);" sec:authentication="name">User</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 6px 16px;">Logout</button>
+                    </form>
+                </div>
+
+                <div sec:authorize="hasRole('HOST')" style="display: flex; align-items: center; gap: 16px;">
+                    <span class="hn-body-sm" style="color: var(--hn-secondary);" sec:authentication="name">User</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 6px 16px;">Logout</button>
+                    </form>
+                </div>
+
+                <div sec:authorize="hasRole('ADMIN')" style="display: flex; align-items: center; gap: 16px;">
+                    <span class="hn-body-sm" style="color: var(--hn-secondary);" sec:authentication="name">User</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="hn-btn hn-btn-outline" style="font-size: 11px; padding: 6px 16px;">Logout</button>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
