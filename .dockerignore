@@ -1,0 +1,10 @@
+target/
+.git/
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
