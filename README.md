@@ -215,19 +215,4 @@ Multi-stage build with BuildKit cache for fast rebuilds:
 ### .dockerignore
 Excludes `target/`, `.git/`, IDE files, logs, and Docker files from the build context.
 
----
 
-## 11. Roadmap
-
-- **Search**: Advanced filters with date availability
-- **Payments**: Gateway integration for live transactions
-- **Notifications**: Email/SMS for booking status changes
-- **Analytics**: Advanced host analytics and revenue insights
-- **Testing**: Comprehensive test coverage for booking overlaps and security
-- **Performance**: Pagination, caching, rate limiting
-
----
-
-## 12. License
-
-This project is for educational and demonstration purposes.
