@@ -1,233 +1,166 @@
-# HomeNest App
+<div align="center">
+  <h1>🏡 HomeNest</h1>
+  <p><strong>A full-stack, responsive accommodation booking platform built for scale, featuring multi-role access, real-time availability checking, and a comprehensive admin suite.</strong></p>
 
-HomeNest is a modern accommodation platform built with Spring Boot 3.5, Thymeleaf, and PostgreSQL. It features a Boutique Editorial design system (Playfair Display + Work Sans, warm cream palette, 0px corners, 1px borders, no shadows) and runs fully containerized with Docker.
+  <p>
+    <a href="#-overview">Overview</a>
+    ·
+    <a href="#-key-features">Features</a>
+    ·
+    <a href="#-architecture--tech-stack">Architecture</a>
+    ·
+    <a href="#-technical-highlights">Technical Highlights</a>
+    ·
+    <a href="#-getting-started">Getting Started</a>
+  </p>
 
----
-
-## 1. What HomeNest Offers
-
-### For Guests
-- Browse published listings across Pakistani cities.
-- Search by city and price range from a responsive home page.
-- View rich listing details with property type, capacity, address, and pricing.
-- Create bookings with date validation and conflict checks.
-- Track reservations through a "My Bookings" dashboard.
-- Leave ratings and reviews after completed stays (one review per stay).
-
-### For Hosts
-- Manage your own listings from a dedicated Host Dashboard with dynamic KPIs.
-- Create, edit, publish/unpublish, and delete properties.
-- See booking requests for owned listings, and confirm or reject them.
-- Track earnings, commission paid, and booking stats across your properties.
-- Create and manage discount codes for your properties.
-
-### For Admins
-- Full control panel with six areas: Dashboard, Listings, Users, Transactions, Sales Reports, Discounts.
-- Dynamic KPIs: users, listings, bookings, revenue, today's performance, month-to-date.
-- Revenue by city and top-performing listings analysis.
-- User management (promote/demote, delete), listing moderation (publish/delete), and discount CRUD.
-- CSV export of transaction data.
+  <p>
+    <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=java" alt="Java 17" />
+    <img src="https://img.shields.io/badge/Spring%20Boot-3.5-green?style=for-the-badge&logo=spring" alt="Spring Boot" />
+    <img src="https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge&logo=postgresql" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker" alt="Docker" />
+    <img src="https://img.shields.io/badge/Thymeleaf-Template-005F0F?style=for-the-badge&logo=thymeleaf" alt="Thymeleaf" />
+  </p>
+</div>
 
 ---
 
-## 2. Core Features
+## 🌟 Overview
 
-### Guest & Booking Experience
-- Responsive home page with search by city and price range.
-- Detailed listing pages with structured property info and booking panel.
-- Booking creation flow with date validation and conflict prevention.
-- Booking success page with confirmation and reference details.
-- Guest bookings dashboard with status badges and history.
+**HomeNest** is a comprehensive, multi-tenant property booking ecosystem designed to seamlessly connect guests with hosts. Developed as a full-stack monolith to demonstrate proficiency in enterprise Java development, the application enforces robust role-based access control (RBAC), complex booking conflict resolution, and data integrity via relational database constraints.
 
-### Host Tools
-- Host dashboard with dynamic KPIs (listings, bookings, earnings, commission).
-- Quick actions for creating listings and navigating to bookings/reviews/discounts.
-- Create and manage property details with image upload support.
-- Review, accept, or reject guest booking requests.
-- Discount management with percentage-based promotional codes.
+The UI implements a custom "Boutique Editorial" design system, prioritizing typography and whitespace over heavy frameworks, resulting in a highly performant and accessible user experience.
 
-### Admin Control Panel
-- Dashboard with KPIs, top listings, recent transactions, and quick-access cards.
-- Listings management with city/status/price filters.
-- User management with role-based badges and protected admin accounts.
-- Transaction history with date range filters and CSV export.
-- Sales reports with city-wise revenue breakdown and top listings analysis.
-- Discount management with status badges (Active, Scheduled, Expired, Inactive).
+> **Status:** Fully functional local environment. Containerized and ready for cloud deployment.
 
----
+## ✨ Key Features & Business Value
 
-## 3. Design System
+### 🛡️ Multi-Role Architecture
+- **Guests:** Intuitive search, booking management, and post-stay review capabilities.
+- **Hosts:** Comprehensive dashboard for property management, revenue tracking, and booking request moderation.
+- **Administrators:** Global control panel with real-time KPIs, transaction auditing, and platform moderation tools.
 
-HomeNest uses a Boutique Editorial design system:
+### 📅 Advanced Booking Engine
+- Implemented robust date-range validation to prevent double-booking.
+- Real-time availability checks and state management (Pending, Confirmed, Rejected, Completed).
 
-- **Typography**: Playfair Display (headlines/display) + Work Sans (body/labels)
-- **Palette**: Warm cream surface (#fff8f2), deep brown text (#1e1b16), terracotta accent (#ab2e18)
-- **Corners**: 0px border-radius everywhere (enforced globally)
-- **Borders**: 1px solid rgba(30, 27, 22, 0.1) for cards, tables, and dividers
-- **Shadows**: None (removed globally)
-- **Components**: KPI row (auto-fit grid with 1px gap dividers), content cards, stat cards, badges, alerts, tables, buttons, inputs
-- **Responsive**: Multi-column grids on desktop, 2-column on tablet, single-column on mobile
+### 🎨 Custom Design System (Boutique Editorial)
+- Developed a bespoke, CSS-driven design system independent of heavy component libraries.
+- Features *Playfair Display* & *Work Sans* typography, zero-border-radius components, and a warm cream palette for a premium aesthetic.
+- Fully responsive layout utilizing CSS Grid and Flexbox (Mobile to Desktop).
+
+### 📊 Analytics & Reporting
+- Dynamic KPI generation for Hosts and Admins.
+- Automated CSV export for transaction histories and financial auditing.
 
 ---
 
-## 4. Tech Stack
+## 🏗️ Architecture & Tech Stack
 
-- **Backend**: Spring Boot 3.5, Java 17, Spring Data JPA, Spring Security
-- **Frontend**: Thymeleaf, Bootstrap 5 (layout only), custom editorial CSS
-- **Database**: PostgreSQL 16 (via Docker)
-- **Containerization**: Docker Compose with multi-stage build
+HomeNest utilizes a classic, robust MVC architecture powered by the Spring ecosystem, containerized for reliable deployment.
+
+```mermaid
+graph TD
+    Client[Browser / Client] <-->|HTTP/REST| Controller[Spring Web Controllers]
+    Controller <-->|Data Transfer Objects| Service[Business Logic Layer]
+    Service <-->|Spring Data JPA| Repository[Data Access Layer]
+    Repository <-->|Hibernate / JDBC| DB[(PostgreSQL 16)]
+    
+    subgraph Spring Boot 3.5 Application
+        Controller
+        Service
+        Repository
+        Security[Spring Security / RBAC]
+    end
+    
+    Controller -.->|Renders| View[Thymeleaf Templates]
+    Security -.->|Protects| Controller
+```
+
+### Core Technologies
+- **Backend:** Java 17, Spring Boot 3.5, Spring Security, Spring Data JPA
+- **Frontend:** Thymeleaf (Server-Side Rendering), Custom CSS (Boutique Editorial), HTML5
+- **Database:** PostgreSQL 16
+- **DevOps:** Docker, Docker Compose, Maven (Multi-stage builds)
 
 ---
 
-## 5. Seed Data
+## 🧠 Technical Highlights (For the Engineering Team)
 
-The application starts with a single admin user:
+### 1. Robust Security Implementation
+Leveraged **Spring Security** to implement strict Role-Based Access Control (RBAC). The application distinguishes between `ROLE_GUEST`, `ROLE_HOST`, and `ROLE_ADMIN` seamlessly. Route protection ensures that Hosts cannot access Admin endpoints, and Guests cannot modify Host properties, preventing lateral privilege escalation.
 
-| Username | Email | Password | Role |
-|----------|-------|----------|------|
-| admin | admin@homenest.com | 1234 | ROLE_ADMIN |
+### 2. Containerized Development Workflow
+The entire stack is containerized using **Docker** and **Docker Compose**. A multi-stage `Dockerfile` is utilized to cache Maven dependencies during the build process and generate a minimal JRE runtime image, drastically reducing the final container size and deployment time.
 
-All hostel listings have been removed. The homepage shows dynamic published listings from the database (empty state when none exist). Register new host and guest accounts through the application.
+### 3. Data Integrity & Concurrency
+The booking system is the core domain model. I utilized Spring Data JPA with proper transactional boundaries (`@Transactional`) to handle concurrent booking operations. The PostgreSQL database employs strict foreign key constraints to guarantee data integrity across users, properties, and transactions.
 
 ---
 
-## 6. Getting Started
+## 🚀 Getting Started (Local Development)
+
+The project is pre-configured for a frictionless developer experience using Docker.
 
 ### Prerequisites
-- JDK 17+
-- Maven
-- Docker & Docker Compose (recommended)
+- Docker & Docker Compose
+- *Alternative:* JDK 17, Maven, local PostgreSQL instance
 
-### Option A: Docker (Recommended)
+### 🐳 Quick Start (Docker - Recommended)
 
-```bash
-# From the project root
-docker compose up --build
-```
-
-This starts:
-- **PostgreSQL 16** on port 5432
-- **HomeNest app** on port 8080
-
-The database is created automatically. Tables and seed data (admin user) are populated on first run.
-
-### Option B: Local PostgreSQL
-
-1. Install and start PostgreSQL 16.
-2. Create a database:
-   ```sql
-   CREATE DATABASE homenest;
-   ```
-3. Configure connection in `src/main/resources/application.properties` or set environment variables:
+1. **Clone the repository:**
    ```bash
-   export DB_HOST=localhost
-   export DB_PORT=5432
-   export DB_NAME=homenest
-   export DB_USER=your_user
-   export DB_PASS=your_password
+   git clone <repository-url>
+   cd homenest-app
    ```
-4. Build and run:
+
+2. **Spin up the stack:**
    ```bash
-   mvn clean package -DskipTests
-   java -jar target/homenest-app-0.0.1-SNAPSHOT.jar
+   docker compose up --build
    ```
+   *This command provisions the PostgreSQL database, automatically applies the schema, seeds the initial admin user, and starts the Spring Boot application.*
 
-### Access
+3. **Access the application:**
+   Navigate to `http://localhost:8080`
 
-Open `http://localhost:8080` in your browser.
+### 👤 Default Seed Data
 
----
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@homenest.com | 1234 |
 
-## 7. Default Accounts
-
-| Username | Email | Password | Role | Purpose |
-|----------|-------|----------|------|---------|
-| admin | admin@homenest.com | 1234 | ROLE_ADMIN | Full admin panel access |
-
-Register new accounts through the `/register` page:
-- **Guest** – browse, search, book properties, leave reviews.
-- **Host** – create listings, manage bookings, create discounts.
+*(Note: For security reasons, default passwords should be changed in a production environment. Additional Guest and Host accounts can be created via the `/register` portal.)*
 
 ---
 
-## 8. User Flows to Try
+## 📁 Project Structure
 
-### Guests
-1. Register a guest account at `/register`.
-2. Browse the home page and filter by city/price.
-3. Open a listing and create a booking.
-4. View booking status in "My Bookings".
-5. Leave a review after a completed stay.
-
-### Hosts
-1. Register a host account at `/register`.
-2. Open the Host Dashboard and create a new listing.
-3. Publish the listing to make it visible to guests.
-4. View and respond to booking requests (confirm/reject).
-5. Create discount codes for your properties.
-
-### Admins
-1. Log in with admin/admin@homenest.com/1234.
-2. Explore the Admin Dashboard with KPIs.
-3. Manage users, listings, transactions, and discounts.
-4. Run sales reports by city and date range.
-5. Export transactions as CSV.
-
----
-
-## 9. Architecture
-
-```
-src/main/java/com/homenest/homenest/
-├── config/          # SecurityConfig
-├── controller/      # Home, Listing, Booking, Host, Admin, Auth controllers
-├── model/           # User, Listing, Booking, Review, Discount entities
-├── repository/      # Spring Data JPA repositories
-└── service/         # Business logic layer
-
-src/main/resources/
-├── application.properties   # PostgreSQL config (DB_* env vars)
-├── static/css/editorial.css # Boutique Editorial design system
-├── static/images/           # Logo and assets
-└── templates/               # Thymeleaf templates
-    ├── fragments/           # navbar, footer
-    ├── home.html            # Published listings with search
-    ├── listing-detail.html  # Property details + booking panel
-    ├── host-*.html          # Host dashboard, listings, bookings, reviews, discounts
-    ├── guest-*.html         # Guest bookings
-    ├── admin-*.html         # Admin dashboard, users, listings, transactions, reports, discounts
-    └── *.html               # Auth, booking flow, about
+```text
+homenest-app/
+├── src/main/java/com/homenest/
+│   ├── config/          # Spring Security & App Configurations
+│   ├── controller/      # MVC Controllers (Routing & HTTP handling)
+│   ├── model/           # JPA Entities (User, Listing, Booking, etc.)
+│   ├── repository/      # Data Access Interfaces
+│   └── service/         # Core Business Logic & Transaction Management
+├── src/main/resources/
+│   ├── static/          # Custom CSS, Assets
+│   └── templates/       # Thymeleaf HTML Views
+├── Dockerfile           # Multi-stage build definition
+└── docker-compose.yml   # Infrastructure orchestration
 ```
 
 ---
 
-## 10. Docker Configuration
+## 🛣️ Future Enhancements
 
-### Dockerfile
-Multi-stage build with BuildKit cache for fast rebuilds:
-- **Stage 1**: Maven build with cached dependencies
-- **Stage 2**: Lightweight JRE runtime
-
-### docker-compose.yml
-- `postgres`: PostgreSQL 16 Alpine, persistent volume, health check
-- `app`: Spring Boot app, depends on healthy Postgres, auto-creates schema
-
-### .dockerignore
-Excludes `target/`, `.git/`, IDE files, logs, and Docker files from the build context.
+- **Payment Gateway Integration:** Implement Stripe API for live transaction processing.
+- **RESTful API Extraction:** Migrate Thymeleaf views to a decoupled React/Next.js frontend.
+- **Advanced Search:** Integrate Elasticsearch for geo-spatial querying and fuzzy text search.
 
 ---
 
-## 11. Roadmap
-
-- **Search**: Advanced filters with date availability
-- **Payments**: Gateway integration for live transactions
-- **Notifications**: Email/SMS for booking status changes
-- **Analytics**: Advanced host analytics and revenue insights
-- **Testing**: Comprehensive test coverage for booking overlaps and security
-- **Performance**: Pagination, caching, rate limiting
-
----
-
-## 12. License
-
-This project is for educational and demonstration purposes.
+<div align="center">
+  <i>Seeking Software Engineering opportunities. Let's connect!</i><br>
+  <a href="https://linkedin.com/in/YOUR_PROFILE">LinkedIn</a> • <a href="mailto:YOUR_EMAIL">Email</a>
+</div>
