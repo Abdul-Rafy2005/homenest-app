@@ -162,5 +162,5 @@ homenest-app/
 
 <div align="center">
   <i>Seeking Software Engineering opportunities. Let's connect!</i><br>
-  <a href="https://linkedin.com/in/YOUR_PROFILE">LinkedIn</a> • <a href="mailto:YOUR_EMAIL">Email</a>
+  <a href="https://www.linkedin.com/in/abdul-rafy-b11829315/">LinkedIn</a> • <a href="mailto:abdulrafykz@gmail.com">Email</a>
 </div>
